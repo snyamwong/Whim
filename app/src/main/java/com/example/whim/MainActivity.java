@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Map<String, String> params = new HashMap<>();
                     params.put("term", "indian food");
-                    params.put("latitude", "40.581140");
-                    params.put("longitude", "-111.914184");
+                    params.put("location", "boston, ma");
 
                     Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
                     SearchResponse searchResponse = call.execute().body();
