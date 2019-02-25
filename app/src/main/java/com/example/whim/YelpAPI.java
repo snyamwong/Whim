@@ -14,53 +14,67 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-
-public class YelpAPI
+/**
+ * Utility class for handling Yelp API and handling request and responses to it
+ */
+public class YelpAPI extends Thread
 {
+    // API Key
+    final String apiKey = "OiUsQEd9t6xdnrCN1DNUfwy4uLK_HNZ2n6e_hqKJUsV8qlY8TSRxkM_L5yfMAA--4uJqfCvxNc0RlM65jAnfvSzCETfK9woIYW9fxLq9xM5ZBAQA_CcgIouyvPpIXHYx";
+    YelpFusionApi yelpFusionApi;
+
     /**
-     * TODO add arguments, separate the functionality
-     * Dummy class for testing purposes
+     * Empty Constructor
      */
-    public void startYelpAPI()
+    public YelpAPI() {}
+
+    @Override
+    public void run()
     {
-        // API Key
-        final String apiKey = "OiUsQEd9t6xdnrCN1DNUfwy4uLK_HNZ2n6e_hqKJUsV8qlY8TSRxkM_L5yfMAA--4uJqfCvxNc0RlM65jAnfvSzCETfK9woIYW9fxLq9xM5ZBAQA_CcgIouyvPpIXHYx";
-
-        Thread thread = new Thread(new Runnable()
+        // Yelp API
+        try
         {
-            @Override
-            public void run()
-            {
-                // Yelp API
-                try
-                {
-                    YelpFusionApiFactory apiFactory = new YelpFusionApiFactory();
-                    YelpFusionApi yelpFusionApi = apiFactory.createAPI(apiKey);
-
-                    Map<String, String> params = new HashMap<>();
-                    params.put("term", "indian food");
-                    params.put("location", "boston, ma");
-
-                    Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
-                    SearchResponse searchResponse = call.execute().body();
-
-                    ArrayList<Business> businesses = searchResponse.getBusinesses();
-                    String businessName = businesses.get(0).getName();  // "JapaCurry Truck"
-                    Double rating = businesses.get(0).getRating();  // 4.0
-
-                    Log.d("YELP", businessName);
-                    Log.d("YELP", "" + rating);
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        thread.start();
+            YelpFusionApiFactory apiFactory = new YelpFusionApiFactory();
+            yelpFusionApi = apiFactory.createAPI(apiKey);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * TODO have a parameter for filters
+     * @return
+     */
+    public ArrayList<Business> getBusinesss ()
+    {
+        try
+        {
+            Map<String, String> params = new HashMap<>();
+            params.put("term", "indian food");
+            params.put("location", "boston, ma");
+
+            Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
+            SearchResponse searchResponse = call.execute().body();
+
+            ArrayList<Business> businesses = searchResponse.getBusinesses();
+            String businessName = businesses.get(0).getName();  // "JapaCurry Truck"
+            Double rating = businesses.get(0).getRating();  // 4.0
+
+            Log.d("YELP", businessName);
+            Log.d("YELP", "" + rating);
+
+            return businesses;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        // TODO a better handling of IOException
+        return null;
+    }
 }
 
 
