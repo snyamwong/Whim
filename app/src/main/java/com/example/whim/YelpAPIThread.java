@@ -17,7 +17,7 @@ import retrofit2.Call;
 /**
  * Utility class for handling Yelp API and handling request and responses to it
  */
-public class YelpAPI extends Thread
+public class YelpAPIThread extends Thread
 {
     // API Key
     final String apiKey = "OiUsQEd9t6xdnrCN1DNUfwy4uLK_HNZ2n6e_hqKJUsV8qlY8TSRxkM_L5yfMAA--4uJqfCvxNc0RlM65jAnfvSzCETfK9woIYW9fxLq9xM5ZBAQA_CcgIouyvPpIXHYx";
@@ -26,7 +26,7 @@ public class YelpAPI extends Thread
     /**
      * Empty Constructor
      */
-    public YelpAPI() {}
+    public YelpAPIThread() {}
 
     @Override
     public void run()
