@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements FavoriteFragment.
             switch (position)
             {
                 case 1:
-                    return SearchFragment.newInstance("", "");
+                    return SearchFragment.newInstance();
                 case 2:
                     return FavoriteFragment.newInstance();
             }
