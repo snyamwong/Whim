@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements FavoriteFragment.OnFragmentInteractionListener, SelectionFragment.OnFragmentInteractionListener
+        implements FavoriteFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener
 {
 
     final String LOGTAG = "MainActivity";
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
             // TODO abstract this part by introducing a Factory class, for now just hack it
             if (position == 1)
             {
-                return SelectionFragment.newInstance("", "");
+                return SearchFragment.newInstance("", "");
             }
             else if (position == 2)
             {
