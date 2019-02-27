@@ -1,40 +1,30 @@
 package com.example.whim;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity
-        implements FavoriteFragment.OnFragmentInteractionListener, SelectionFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements FavoriteFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener
 {
 
     final String LOGTAG = "MainActivity";
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     ViewPager mViewPager;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -55,18 +45,25 @@ public class MainActivity extends AppCompatActivity
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
     }
 
-
+    /**
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
+    /**
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -89,11 +86,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
+     * @param uri
+     */
+    @Override
+    public void onFragmentInteraction(Uri uri)
+    {
+        //you can leave it empty
+    }
+
+    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter
     {
+        SectionsPagerAdapter(FragmentManager fm)
+        {
+            super(fm);
+        }
 
         @Override
         public Fragment getItem(int position)
@@ -101,22 +111,16 @@ public class MainActivity extends AppCompatActivity
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             // TODO abstract this part by introducing a Factory class, for now just hack it
-            if (position == 1)
+            switch (position)
             {
-                return SelectionFragment.newInstance("", "");
-            }
-            else if (position == 2)
-            {
-                return FavoriteFragment.newInstance();
+                case 1:
+                    return SearchFragment.newInstance("", "");
+                case 2:
+                    return FavoriteFragment.newInstance();
             }
 
             // should never reach this point but...
             return new Fragment();
-        }
-
-        SectionsPagerAdapter(FragmentManager fm)
-        {
-            super(fm);
         }
 
         @Override
@@ -125,12 +129,5 @@ public class MainActivity extends AppCompatActivity
             // Show 2 total pages.
             return 2;
         }
-
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri)
-    {
-        //you can leave it empty
     }
 }
