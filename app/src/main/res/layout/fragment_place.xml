@@ -3,12 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".PlaceFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/restaurant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restaurant"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="400dp"
+        android:textSize="24sp"/>
 
+    <ImageView
+        android:id="@+id/restaurant_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:contentDescription="Restaurant"/>
+
+    <ImageButton
+        android:id="@+id/new_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/reroll"
+        android:background="#ffffff"
+        android:layout_gravity="center|end"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="75dp"/>
+
+    <ImageButton
+        android:id="@+id/favorite_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/heart"
+        android:background="#ffffff"
+        android:layout_gravity="center|start"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="75dp"/>
 </FrameLayout>
