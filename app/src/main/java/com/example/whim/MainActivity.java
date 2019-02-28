@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -33,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements FavoriteFragment.
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements FavoriteFragment.
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+
     }
 
     /**
@@ -71,16 +74,6 @@ public class MainActivity extends AppCompatActivity implements FavoriteFragment.
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.tab_search)
-        {
-            Log.v(LOGTAG, "Selected Tab - Search");
-        }
-        else if (id == R.id.tab_favorite)
-        {
-            Log.v(LOGTAG, "Selected Tab - Favorite");
-        }
 
         return super.onOptionsItemSelected(item);
     }
