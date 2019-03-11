@@ -5,4 +5,23 @@
     <string name="tab_text_favorite">Favorite</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
+
+<!--start of fragment_filter strings-->
+
+    <string name="selection_p">Select Prices: </string>
+    <string name="expensive">$$$$$</string>
+    <string name="costly">$$$$</string>
+    <string name="average">$$$</string>
+    <string name="cheap">$$</string>
+    <string name="v_cheap">$</string>
+
+    <string name="selection_rating">Select Ratings:</string>
+    <string name="excellent">*****</string>
+    <string name="good">****</string>
+    <string name="neutral">***</string>
+    <string name="poor">**</string>
+    <string name="bad">*</string>
+
+    <!--End of fragment_filter strings-->
+
 </resources>
