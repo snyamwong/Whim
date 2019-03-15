@@ -6,9 +6,124 @@
     tools:context=".FilterFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/Rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selection_rating" />
+        <CheckBox android:id="@+id/excellent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/excellent"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/good"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/neutral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/neutral"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/poor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/poor"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/bad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bad"
+            android:onClick="onCheckboxClicked"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+        <TextView
+            android:id="@+id/prices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selection_p" />
+        <CheckBox android:id="@+id/expensive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expensive"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/costly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/costly"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/average"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/cheap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cheap"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/v_cheap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/v_cheap"
+            android:onClick="onCheckboxClicked"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open?"
+            android:layout_marginRight="50dp"/>
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open?"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deliver?"
+            android:layout_marginRight="50dp"/>
+        <Switch
+            android:id="@+id/switch3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Takeout?"
+            android:layout_marginRight="50dp"/>
+        <Switch
+            android:id="@+id/switch4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+    </LinearLayout>
+
+
 
 </FrameLayout>

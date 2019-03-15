@@ -8,7 +8,6 @@ import com.yelp.fusion.client.models.SearchResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.Map;
 
 import retrofit2.Call;
@@ -21,7 +20,7 @@ public class YelpFusion extends Thread
     // TODO relocate the API Key somewhere else
     final String apiKey = "OiUsQEd9t6xdnrCN1DNUfwy4uLK_HNZ2n6e_hqKJUsV8qlY8TSRxkM_L5yfMAA--4uJqfCvxNc0RlM65jAnfvSzCETfK9woIYW9fxLq9xM5ZBAQA_CcgIouyvPpIXHYx";
 
-    YelpFusionApi yelpFusionApi;
+    private YelpFusionApi yelpFusionApi;
 
     @Override
     public void run()
@@ -39,6 +38,7 @@ public class YelpFusion extends Thread
 
     /**
      * Params is obtained via SearchFragment and FilterFragment
+     *
      * @param params
      * @return businesses
      */
