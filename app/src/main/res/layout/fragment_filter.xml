@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/selection_rating" />
+        <!--
         <CheckBox android:id="@+id/excellent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +42,34 @@
             android:layout_height="wrap_content"
             android:text="@string/bad"
             android:onClick="onCheckboxClicked"/>
+        -->
+
+        <Button android:id="@+id/excellent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/excellent"
+            android:onClick="onCheckboxClicked"/>
+        <Button android:id="@+id/good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/good"
+            android:onClick="onCheckboxClicked"/>
+        <Button android:id="@+id/neutral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/neutral"
+            android:onClick="onCheckboxClicked"/>
+        <Button android:id="@+id/poor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/poor"
+            android:onClick="onCheckboxClicked"/>
+        <Button android:id="@+id/bad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bad"
+            android:onClick="onCheckboxClicked"/>
+
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
@@ -52,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/selection_p" />
+        <!--
         <CheckBox android:id="@+id/expensive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,6 +103,33 @@
             android:text="@string/cheap"
             android:onClick="onCheckboxClicked"/>
         <CheckBox android:id="@+id/v_cheap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/v_cheap"
+            android:onClick="onCheckboxClicked"/>
+        -->
+
+        <Button android:id="@+id/expensive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expensive"
+            android:onClick="onCheckboxClicked"/>
+        <Button android:id="@+id/costly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/costly"
+            android:onClick="onCheckboxClicked"/>
+        <Button android:id="@+id/average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/average"
+            android:onClick="onCheckboxClicked"/>
+        <Button android:id="@+id/cheap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cheap"
+            android:onClick="onCheckboxClicked"/>
+        <Button android:id="@+id/v_cheap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/v_cheap"
@@ -122,6 +179,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Yes" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance: "/>
+
+        <Spinner
+            android:id="@+id/distance_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Spinner>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp">
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="170dp"
+            android:text="SUBMIT"/>
     </LinearLayout>
 
 
