@@ -13,6 +13,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +28,8 @@ public class FilterFragment extends Fragment
     private OnFragmentInteractionListener mListener;
 
     private LocationManager locationManager;
+
+    String[] distance = {"0.5 Mile", "1 Mile", "2.5 Miles", "5 Miles", "10 Miles"};
 
     public FilterFragment()
     {
@@ -48,6 +53,12 @@ public class FilterFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Spinner dropdown = getView().findViewById(R.id.distance_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,distance);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        dropdown.setAdapter(adapter);
+        //dropdown.setOnItemSelectedListener(this);
     }
 
     @Override

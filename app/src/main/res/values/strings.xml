@@ -22,14 +22,14 @@
     <string name="poor">**</string>
     <string name="bad">*</string>
 
-    <string-array name="miles">
+    <!--<string-array name="miles">
         <Item>0.5 miles</Item>
         <Item>1.0 mile</Item>
         <Item>2.5 miles</Item>
         <Item>5.0 miles</Item>
         <Item>10.0 miles</Item>
     </string-array>
-
+-->
     <!--End of fragment_filter strings-->
 
 </resources>
