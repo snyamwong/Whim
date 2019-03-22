@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +21,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements FavoriteFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements
+        FavoriteFragment.OnFragmentInteractionListener,
+        SearchFragment.OnFragmentInteractionListener,
+        FilterFragment.OnFragmentInteractionListener,
+        PlaceFragment.OnFragmentInteractionListener
 {
 
     final String LOGTAG = "MainActivity";
@@ -32,6 +37,15 @@ public class MainActivity extends AppCompatActivity implements FavoriteFragment.
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
+
+        // Commented here for a quick switch to FilterFragment
+        /*
+        Fragment newFragment = new FilterFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.main_content, newFragment).commit();
+        */
 
         displayTabLayout();
     }
