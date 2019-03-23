@@ -17,25 +17,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Filter"
+            android:text="@string/filter"
             android:layout_gravity="center_horizontal"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Back"
-            android:layout_gravity="left"/>
-
     </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp">
-    <TextView
-        android:id="@+id/Rating"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/selection_rating" />
+
+        <TextView
+            android:id="@+id/Rating"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/selection_rating" />
     </LinearLayout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -45,39 +42,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/excellent"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/four_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/good"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/three_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/neutral"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/two_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/poor"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/one_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bad"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
-
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp">
-    <TextView
-        android:id="@+id/prices"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/selection_p" />
+        <TextView
+            android:id="@+id/prices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/selection_p" />
     </LinearLayout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -88,43 +81,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/costly"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/three_dollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/average"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/two_dollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cheap"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/one_dollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/v_cheap"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="225dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="Open Now" />
-
+            android:layout_gravity="start"
+            android:text="@string/open_now" />
         <Switch
             android:id="@+id/switch2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:textColorHighlight="@color/colorAccent" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -132,32 +119,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order Delivery"
-            android:layout_gravity="left"/>
+            android:text="@string/order_delivery"
+            android:layout_gravity="start"/>
         <Switch
             android:id="@+id/switch3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-           />
+            android:layout_gravity="end" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="325dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="Order Takeout" />
-
+            android:layout_gravity="start"
+            android:text="@string/order_takeout" />
         <Switch
             android:id="@+id/switch4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:checked="false" />
     </LinearLayout>
 
@@ -165,28 +149,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="370dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Distance: " />
-
+            android:text="@string/distance" />
         <Spinner
             android:id="@+id/distance_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Spinner>
-
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
-
-
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="SUBMIT" />
-
-
-
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="@string/confirm" />
 </FrameLayout>

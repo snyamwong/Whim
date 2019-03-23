@@ -11,15 +11,11 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +69,7 @@ public class FilterFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
-        Button buttonSubmit = view.findViewById(R.id.submit);
+        Button buttonSubmit = view.findViewById(R.id.confirm);
 
         buttonSubmit.setOnClickListener(listener -> {
 

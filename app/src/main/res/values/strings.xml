@@ -21,6 +21,12 @@
     <string name="neutral">***</string>
     <string name="poor">**</string>
     <string name="bad">*</string>
+    <string name="order_takeout">Order Takeout</string>
+    <string name="distance">Distance</string>
+    <string name="confirm">Confirm</string>
+    <string name="filter">Filter</string>
+    <string name="open_now">Open Now</string>
+    <string name="order_delivery">Order Delivery</string>
 
     <!--<string-array name="miles">
         <Item>0.5 miles</Item>
