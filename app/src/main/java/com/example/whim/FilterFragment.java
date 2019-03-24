@@ -10,13 +10,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.CheckBox;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,18 +55,33 @@ public class FilterFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
+        /*
         Spinner dropdown = getView().findViewById(R.id.distance_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,distance);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         dropdown.setAdapter(adapter);
-        //dropdown.setOnItemSelectedListener(this);
+        dropdown.setOnItemSelectedListener(this);
+        */
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        View view = inflater.inflate(R.layout.fragment_filter, container, false);
+
+        Button buttonSubmit = view.findViewById(R.id.confirm);
+
+        buttonSubmit.setOnClickListener(listener -> {
+
+            Fragment fragment = new PlaceFragment();
+
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.main_content, fragment).commit();
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_filter, container, false);
+        return view;
     }
 
     @Override
@@ -134,6 +150,10 @@ public class FilterFragment extends Fragment
         });
     }
 
+    /**
+     *
+     * @return
+     */
     private Map<String, String> getFields()
     {
         Map<String, String> fields = new HashMap<>();
@@ -153,11 +173,95 @@ public class FilterFragment extends Fragment
 
         Double latitude = location.getLatitude();
         Double longitude = location.getLongitude();
+        String dollarParam = getPriceParam();
+        String starParam = getStarParam();
 
         fields.put("latitude", latitude.toString());
         fields.put("longitude", longitude.toString());
+        fields.put("price", dollarParam);
+        fields.put("star", starParam);
 
         return fields;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String getPriceParam()
+    {
+        ArrayList<String> price = new ArrayList<>();
+
+        CheckBox fourDollar = getView().findViewById(R.id.four_dollar);
+        CheckBox threeDollar = getView().findViewById(R.id.three_dollar);
+        CheckBox twoDollar = getView().findViewById(R.id.two_dollar);
+        CheckBox oneDollar = getView().findViewById(R.id.one_dollar);
+
+        if (fourDollar.isChecked())
+        {
+            price.add("4");
+        }
+        if(threeDollar.isChecked())
+        {
+            price.add("3");
+        }
+        if(twoDollar.isChecked())
+        {
+            price.add("2");
+        }
+        if(oneDollar.isChecked())
+        {
+            price.add("1");
+        }
+
+        String priceParam = String.join(",", price);
+
+        return priceParam;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String getStarParam()
+    {
+        ArrayList<String> star = new ArrayList<>();
+
+        CheckBox fiveStar = getView().findViewById(R.id.five_star);
+        CheckBox fourStar = getView().findViewById(R.id.four_star);
+        CheckBox threeStar = getView().findViewById(R.id.three_star);
+        CheckBox twoStar = getView().findViewById(R.id.two_star);
+        CheckBox oneStar = getView().findViewById(R.id.one_star);
+
+        if(fiveStar.isChecked())
+        {
+            star.add("5");
+        }
+        if(fourStar.isChecked())
+        {
+            star.add("4");
+        }
+        if(threeStar.isChecked())
+        {
+            star.add("3");
+        }
+        if(twoStar.isChecked())
+        {
+            star.add("2");
+        }
+        if(oneStar.isChecked())
+        {
+            star.add("1");
+        }
+
+        String starParam = String.join(",", star);
+
+        return starParam;
+    }
+
+    private void createButtonListener()
+    {
+
     }
 
     /**

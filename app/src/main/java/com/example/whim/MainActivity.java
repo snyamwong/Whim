@@ -1,26 +1,24 @@
 package com.example.whim;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements FavoriteFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements
+        FavoriteFragment.OnFragmentInteractionListener,
+        SearchFragment.OnFragmentInteractionListener,
+        FilterFragment.OnFragmentInteractionListener,
+        PlaceFragment.OnFragmentInteractionListener
 {
 
     final String LOGTAG = "MainActivity";
@@ -33,29 +31,64 @@ public class MainActivity extends AppCompatActivity implements FavoriteFragment.
     {
         super.onCreate(savedInstanceState);
 
-        displayTabLayout();
-    }
-
-    private void displayTabLayout()
-    {
         setContentView(R.layout.activity_main);
 
+        Fragment searchFragment = new SearchFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.main_content, searchFragment).commit();
+
+        showSupportActionBar();
+        showTabLayout();
+    }
+
+    /**
+     *
+     */
+    private void showSupportActionBar()
+    {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().show();
+    }
 
+    /**
+     *
+     */
+    private void hideSupportActionBar()
+    {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().hide();
+    }
+
+    /**
+     *
+     */
+    private void showTabLayout()
+    {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
+        TabLayout tabLayout = findViewById(R.id.tabs);
+
         ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
-
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+    }
+
+    /**
+     *
+     */
+    private void hideTabLayout()
+    {
+        TabLayout tabLayout = findViewById(R.id.tabs);
+
+        tabLayout.setVisibility(View.GONE);
     }
 
     /**
