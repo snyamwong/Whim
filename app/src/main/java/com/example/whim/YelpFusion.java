@@ -1,5 +1,7 @@
 package com.example.whim;
 
+import android.util.Log;
+
 import com.yelp.fusion.client.connection.YelpFusionApi;
 import com.yelp.fusion.client.connection.YelpFusionApiFactory;
 import com.yelp.fusion.client.models.Business;
@@ -8,6 +10,7 @@ import com.yelp.fusion.client.models.SearchResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -18,17 +21,38 @@ import retrofit2.Call;
 public class YelpFusion extends Thread
 {
     // TODO relocate the API Key somewhere else
-    private String apiKey = "OiUsQEd9t6xdnrCN1DNUfwy4uLK_HNZ2n6e_hqKJUsV8qlY8TSRxkM_L5yfMAA--4uJqfCvxNc0RlM65jAnfvSzCETfK9woIYW9fxLq9xM5ZBAQA_CcgIouyvPpIXHYx";
+    private final String apiKey = "OiUsQEd9t6xdnrCN1DNUfwy4uLK_HNZ2n6e_hqKJUsV8qlY8TSRxkM_L5yfMAA--4uJqfCvxNc0RlM65jAnfvSzCETfK9woIYW9fxLq9xM5ZBAQA_CcgIouyvPpIXHYx";
 
-    private YelpFusionApi yelpFusionApi;
+    private Map<String, String> params;
+
+    private ArrayList<Business> businesses;
+
+    public YelpFusion()
+    {
+        this(new HashMap());
+    }
+
+    public YelpFusion(Map params)
+    {
+        this.businesses = new ArrayList<>();
+
+        this.params = params;
+    }
 
     @Override
     public void run()
     {
-        // Yelp API
         try
         {
-            this.yelpFusionApi = new YelpFusionApiFactory().createAPI(apiKey);
+            YelpFusionApi yelpFusionApi = new YelpFusionApiFactory().createAPI(apiKey);
+
+            Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
+
+            SearchResponse searchResponse = call.execute().body();
+
+            this.businesses = searchResponse.getBusinesses();
+
+            Collections.shuffle(businesses);
         }
         catch (IOException e)
         {
@@ -36,32 +60,9 @@ public class YelpFusion extends Thread
         }
     }
 
-    /**
-     * Params is obtained via SearchFragment and FilterFragment
-     *
-     * @param params
-     * @return businesses
-     */
-    public ArrayList<Business> getBusinesses(Map<String, String> params)
+    public ArrayList<Business> getBusinesses()
     {
-        try
-        {
-            Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
-
-            SearchResponse searchResponse = call.execute().body();
-
-            ArrayList<Business> businesses = searchResponse.getBusinesses();
-
-            Collections.shuffle(businesses);
-
-            return businesses;
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        return new ArrayList<>();
+        return businesses;
     }
 }
 
