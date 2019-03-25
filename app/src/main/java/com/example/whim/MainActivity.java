@@ -14,11 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements
-        FavoriteFragment.OnFragmentInteractionListener,
-        SearchFragment.OnFragmentInteractionListener,
-        FilterFragment.OnFragmentInteractionListener,
-        PlaceFragment.OnFragmentInteractionListener
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements FavoriteFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener, FilterFragment.OnFragmentInteractionListener, PlaceFragment.OnFragmentInteractionListener
 {
 
     final String LOGTAG = "MainActivity";
@@ -75,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements
         TabLayout tabLayout = findViewById(R.id.tabs);
 
         ViewPager mViewPager = findViewById(R.id.container);
+
+        mSectionsPagerAdapter.addFragment(new SearchFragment(), "Search");
+        mSectionsPagerAdapter.addFragment(new FavoriteFragment(), "Favorite");
+
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -134,34 +137,36 @@ public class MainActivity extends AppCompatActivity implements
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter
     {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
         SectionsPagerAdapter(FragmentManager fm)
         {
             super(fm);
         }
 
+        public void addFragment(Fragment fragment, String title)
+        {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position)
+        {
+            return mFragmentTitleList.get(position);
+        }
+
         @Override
         public Fragment getItem(int position)
         {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            // TODO abstract this part by introducing a Factory class, for now just hack it
-            switch (position)
-            {
-                case 1:
-                    return SearchFragment.newInstance();
-                case 2:
-                    return FavoriteFragment.newInstance();
-            }
-
-            // should never reach this point but...
-            return new Fragment();
+            return mFragmentList.get(position);
         }
 
         @Override
         public int getCount()
         {
-            // Show 2 total pages.
-            return 2;
+            return mFragmentList.size();
         }
     }
 }
