@@ -3,7 +3,10 @@ package com.example.whim;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +54,7 @@ public class FavoriteFragment extends Fragment
 
         if (getArguments() != null)
         {
-            
+
         }
     }
 
@@ -59,7 +62,19 @@ public class FavoriteFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        RecyclerAdapter adapter = new RecyclerAdapter();
+
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -78,7 +93,8 @@ public class FavoriteFragment extends Fragment
         if (context instanceof OnFragmentInteractionListener)
         {
             mListener = (OnFragmentInteractionListener) context;
-        } else
+        }
+        else
         {
             throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
