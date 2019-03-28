@@ -1,5 +1,6 @@
 package com.example.whim;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,7 +59,7 @@ public class SearchFragment extends Fragment
     @Override
     public void onAttach(Context context)
     {
-        super.onAttach(context);
+        super.onAttach((Activity) context);
         if (context instanceof OnFragmentInteractionListener)
         {
             mListener = (OnFragmentInteractionListener) context;

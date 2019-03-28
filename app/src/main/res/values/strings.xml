@@ -38,4 +38,14 @@
 -->
     <!--End of fragment_filter strings-->
 
+<!-- start of fragment_search strings -->
+
+    <string name="burgers">Burgers</string>
+    <string name="italian">Italian</string>
+    <string name="mexican">Mexican</string>
+    <string name="japanese">Japanese</string>
+    <string name="chinese">Chinese</string>
+    <string name="thai">Thai</string>
+    <string name="pizza">Pizza</string>
+
 </resources>
