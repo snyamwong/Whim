@@ -216,11 +216,11 @@
 
 
     <Button
-        android:id="@+id/submit"
+        android:id="@+id/confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="SUBMIT" />
+        android:text="CONFIRM" />
 
 
 
