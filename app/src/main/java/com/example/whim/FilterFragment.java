@@ -61,12 +61,12 @@ public class FilterFragment extends Fragment
     {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_filter, container, false);
-
-        String[] distance = {"0.5 Mile", "1 Mile", "2.5 Miles", "5 Miles", "10 Miles"};
-        Spinner dropdown = v.findViewById(R.id.distance_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item,distance);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        dropdown.setAdapter(adapter);
+//
+//        String[] distance = {"0.5 Mile", "1 Mile", "2.5 Miles", "5 Miles", "10 Miles"};
+//        Spinner dropdown = v.findViewById(R.id.distance_spinner);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item,distance);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        dropdown.setAdapter(adapter);
         //dropdown.setOnItemSelectedListener(this);
 
         return v;
