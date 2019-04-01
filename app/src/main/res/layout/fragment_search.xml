@@ -5,4 +5,106 @@
     android:layout_height="match_parent"
     tools:context=".SearchFragment">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="SELECT A CUISINE:"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
+
+
+        <Button
+            android:id="@+id/burger"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/burgers"
+            android:textStyle="bold"
+            android:background="@drawable/buttonstyle"
+            />
+
+        <Button
+            android:id="@+id/italian"
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/burger"
+            android:text="@string/italian"
+            android:textStyle="bold"
+            android:background="@drawable/buttonstyle"/>
+
+        <Button
+            android:id="@+id/mexican"
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/italian"
+            android:text="@string/mexican"
+            android:textStyle="bold"
+            android:background="@drawable/buttonstyle"/>
+
+        <Button
+            android:id="@+id/japanese"
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/mexican"
+            android:text="@string/japanese"
+            android:textStyle="bold"
+            android:background="@drawable/buttonstyle"/>
+
+        <Button
+            android:id="@+id/chinese"
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/japanese"
+            android:text="@string/chinese"
+            android:textStyle="bold"
+            android:background="@drawable/buttonstyle"/>
+
+        <Button
+            android:id="@+id/thai"
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/chinese"
+            android:text="@string/thai"
+            android:textStyle="bold"
+            android:background="@drawable/buttonstyle"/>
+
+        <Button
+            android:id="@+id/pizza"
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/thai"
+            android:text="@string/pizza"
+            android:textStyle="bold"
+            android:background="@drawable/buttonstyle"/>
+
+    </RelativeLayout>
+
 </FrameLayout>
