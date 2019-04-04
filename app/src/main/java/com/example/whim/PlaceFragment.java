@@ -20,15 +20,23 @@ public class PlaceFragment extends Fragment {
 
     public PlaceFragment()
     {
-        fields = new HashMap<>();
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {fields = new HashMap<>();
 
         Bundle bundle = this.getArguments();
 
         if (bundle != null)
         {
-            fields.put("price", Objects.requireNonNull(bundle.getString("price")));
-            fields.put("longitude", Objects.requireNonNull(bundle.getString("longitude")));
-            fields.put("latitude", Objects.requireNonNull(bundle.getString("latitude")));
+            fields.put("location", "boston, ma");
         }
 
         YelpFusion yelpFusion = new YelpFusion(fields);
@@ -45,11 +53,7 @@ public class PlaceFragment extends Fragment {
         }
 
         ArrayList<Business> businesses = yelpFusion.getBusinesses();
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_place, container, false);
     }
