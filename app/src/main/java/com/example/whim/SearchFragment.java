@@ -5,14 +5,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-import java.io.Serializable;
 
 public class SearchFragment extends Fragment
 {
@@ -48,39 +43,8 @@ public class SearchFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-
-        Button burgerButton = view.findViewById(R.id.burger);
-        burgerButton.setTag("burger");
-        burgerButton.setOnClickListener(buttonListener);
-
-        Button italianButton = view.findViewById(R.id.italian);
-        italianButton.setTag("italian");
-        italianButton.setOnClickListener(buttonListener);
-
-        Button mexicanButton = view.findViewById(R.id.mexican);
-        mexicanButton.setTag("mexican");
-        mexicanButton.setOnClickListener(buttonListener);
-
-        Button japaneseButton = view.findViewById(R.id.japanese);
-        japaneseButton.setTag("japanese");
-        japaneseButton.setOnClickListener(buttonListener);
-
-        Button chineseButton = view.findViewById(R.id.chinese);
-        chineseButton.setTag("chinese");
-        chineseButton.setOnClickListener(buttonListener);
-
-        Button thaiButton = view.findViewById(R.id.thai);
-        thaiButton.setTag("thai");
-        thaiButton.setOnClickListener(buttonListener);
-
-        Button pizzaButton = view.findViewById(R.id.pizza);
-        pizzaButton.setTag("pizza");
-        pizzaButton.setOnClickListener(buttonListener);
-
         // Inflate the layout for this fragment
-        return view;
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -112,22 +76,6 @@ public class SearchFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
-
-    private View.OnClickListener buttonListener = v ->
-    {
-        String tag = (String) v.getTag();
-
-        Fragment fragment = new FilterFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("cuisine", tag);
-        fragment.setArguments(bundle);
-
-        assert getFragmentManager() != null;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        transaction.hide(this);
-        transaction.add(R.id.main_content, fragment).commit();
-    };
 
     public interface OnFragmentInteractionListener
     {

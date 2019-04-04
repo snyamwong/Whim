@@ -7,38 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.yelp.fusion.client.models.Business;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 public class PlaceFragment extends Fragment {
-
-    private Map fields;
-
-    public PlaceFragment()
-    {
-        Bundle bundle = this.getArguments();
-
-        assert bundle != null;
-        fields = (Map) bundle.getSerializable("fields");
-
-        YelpFusion yelpFusion = new YelpFusion(fields);
-
-        try
-        {
-            yelpFusion.start();
-
-            yelpFusion.join();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-
-        ArrayList<Business> businesses = yelpFusion.getBusinesses();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

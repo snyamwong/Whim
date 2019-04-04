@@ -17,13 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-<<<<<<< Updated upstream
-=======
-import com.yelp.fusion.client.models.Business;
-
-import java.io.Serializable;
-import java.util.ArrayList;
->>>>>>> Stashed changes
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,11 +25,6 @@ import static android.content.Context.LOCATION_SERVICE;
 public class FilterFragment extends Fragment
 {
 
-<<<<<<< Updated upstream
-=======
-    private final int LOCATION_PERMISSION_REQUEST_CODE = 1252;
-
->>>>>>> Stashed changes
     private OnFragmentInteractionListener mListener;
 
     private LocationManager locationManager;
@@ -64,17 +52,13 @@ public class FilterFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-<<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-<<<<<<< Updated upstream
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_filter, container, false);
 //
@@ -86,32 +70,9 @@ public class FilterFragment extends Fragment
         //dropdown.setOnItemSelectedListener(this);
 
         return v;
-=======
-        View view = inflater.inflate(R.layout.fragment_filter, container, false);
-
-        Button buttonSubmit = view.findViewById(R.id.confirm);
-
-        buttonSubmit.setOnClickListener(listener ->
-        {
-            createLocationManager();
-
-            Map<String, String> fields = getFields();
-
-            Fragment fragment = new PlaceFragment();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("fields", (Serializable) fields);
-            bundle.putString("star", getStarParam());
-            fragment.setArguments(bundle);
->>>>>>> Stashed changes
 
     }
 
-<<<<<<< Updated upstream
-=======
-            transaction.hide(this);
-            transaction.replace(R.id.main_content, fragment).commit();
-        });
->>>>>>> Stashed changes
 
 
     @Override
@@ -199,17 +160,9 @@ public class FilterFragment extends Fragment
 
         Double latitude = location.getLatitude();
         Double longitude = location.getLongitude();
-<<<<<<< Updated upstream
 
         fields.put("latitude", latitude.toString());
         fields.put("longitude", longitude.toString());
-=======
-        String dollarParam = getPriceParam();
-
-        fields.put("latitude", latitude.toString());
-        fields.put("longitude", longitude.toString());
-        fields.put("price", dollarParam);
->>>>>>> Stashed changes
 
         return fields;
     }
