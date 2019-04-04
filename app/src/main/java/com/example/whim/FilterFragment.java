@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +28,10 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class FilterFragment extends Fragment
 {
-
     private final int LOCATION_PERMISSION_REQUEST_CODE = 1252;
-    String[] distance = {"0.5 Mile", "1 Mile", "2.5 Miles", "5 Miles", "10 Miles"};
+
     private OnFragmentInteractionListener mListener;
+
     private LocationManager locationManager;
 
     public FilterFragment()
@@ -53,48 +54,32 @@ public class FilterFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-        /*
-        Spinner dropdown = getView().findViewById(R.id.distance_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,distance);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        dropdown.setAdapter(adapter);
-        dropdown.setOnItemSelectedListener(this);
-        */
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
         Button buttonSubmit = view.findViewById(R.id.confirm);
 
         buttonSubmit.setOnClickListener(listener ->
         {
-
             createLocationManager();
 
             Map<String, String> fields = getFields();
 
-            try
-            {
-                YelpFusion yelpFusion = new YelpFusion(fields);
-
-                yelpFusion.start();
-
-                yelpFusion.join();
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-
             Fragment fragment = new PlaceFragment();
-
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("fields", (Serializable) fields);
+            bundle.putString("star", getStarParam());
+            fragment.setArguments(bundle);
             assert getFragmentManager() != null;
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
+            transaction.replace(R.id.main_content, fragment).commit();
+            transaction.hide(this);
             transaction.replace(R.id.main_content, fragment).commit();
         });
 
@@ -183,12 +168,10 @@ public class FilterFragment extends Fragment
         Double latitude = location.getLatitude();
         Double longitude = location.getLongitude();
         String dollarParam = getPriceParam();
-        String starParam = getStarParam();
 
         fields.put("latitude", latitude.toString());
         fields.put("longitude", longitude.toString());
         fields.put("price", dollarParam);
-        // fields.put("star", starParam);
 
         return fields;
     }
