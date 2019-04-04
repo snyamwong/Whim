@@ -10,15 +10,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -74,13 +80,16 @@ public class FilterFragment extends Fragment
             bundle.putSerializable("fields", (Serializable) fields);
             bundle.putString("star", getStarParam());
             fragment.setArguments(bundle);
+
             assert getFragmentManager() != null;
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-            transaction.replace(R.id.main_content, fragment).commit();
             transaction.hide(this);
-            transaction.replace(R.id.main_content, fragment).commit();
+            transaction.show(fragment);
+            transaction.commit();
         });
+
+        return view;
     }
 
 
@@ -108,7 +117,7 @@ public class FilterFragment extends Fragment
 
     private void createLocationManager()
     {
-        LocationManager locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
@@ -177,6 +186,75 @@ public class FilterFragment extends Fragment
         fields.put("price", dollarParam);
 
         return fields;
+    }
+
+    /**
+     * @return
+     */
+    private String getPriceParam()
+    {
+        ArrayList<String> price = new ArrayList<>();
+
+        CheckBox fourDollar = Objects.requireNonNull(getView()).findViewById(R.id.four_dollar);
+        CheckBox threeDollar = getView().findViewById(R.id.three_dollar);
+        CheckBox twoDollar = getView().findViewById(R.id.two_dollar);
+        CheckBox oneDollar = getView().findViewById(R.id.one_dollar);
+
+        if (fourDollar.isChecked())
+        {
+            price.add("4");
+        }
+        if (threeDollar.isChecked())
+        {
+            price.add("3");
+        }
+        if (twoDollar.isChecked())
+        {
+            price.add("2");
+        }
+        if (oneDollar.isChecked())
+        {
+            price.add("1");
+        }
+
+        return String.join(",", price);
+    }
+
+    /**
+     * @return
+     */
+    private String getStarParam()
+    {
+        ArrayList<String> star = new ArrayList<>();
+
+        CheckBox fiveStar = getView().findViewById(R.id.five_star);
+        CheckBox fourStar = getView().findViewById(R.id.four_star);
+        CheckBox threeStar = getView().findViewById(R.id.three_star);
+        CheckBox twoStar = getView().findViewById(R.id.two_star);
+        CheckBox oneStar = getView().findViewById(R.id.one_star);
+
+        if (fiveStar.isChecked())
+        {
+            star.add("5");
+        }
+        if (fourStar.isChecked())
+        {
+            star.add("4");
+        }
+        if (threeStar.isChecked())
+        {
+            star.add("3");
+        }
+        if (twoStar.isChecked())
+        {
+            star.add("2");
+        }
+        if (oneStar.isChecked())
+        {
+            star.add("1");
+        }
+
+        return String.join(",", star);
     }
 
     /**
