@@ -27,7 +27,8 @@ public class PlaceFragment extends Fragment {
         if (bundle != null)
         {
             fields.put("price", Objects.requireNonNull(bundle.getString("price")));
-
+            fields.put("longitude", Objects.requireNonNull(bundle.getString("longitude")));
+            fields.put("latitude", Objects.requireNonNull(bundle.getString("latitude")));
         }
 
         YelpFusion yelpFusion = new YelpFusion(fields);
