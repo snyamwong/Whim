@@ -24,6 +24,7 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class FilterFragment extends Fragment
 {
+    private final int LOCATION_PERMISSION_REQUEST_CODE = 1252;
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,27 +53,35 @@ public class FilterFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_filter, container, false);
-//
-//        String[] distance = {"0.5 Mile", "1 Mile", "2.5 Miles", "5 Miles", "10 Miles"};
-//        Spinner dropdown = v.findViewById(R.id.distance_spinner);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item,distance);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        dropdown.setAdapter(adapter);
-        //dropdown.setOnItemSelectedListener(this);
+        View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
-        return v;
+        Button buttonSubmit = view.findViewById(R.id.confirm);
 
+        buttonSubmit.setOnClickListener(listener ->
+        {
+            createLocationManager();
+
+            Map<String, String> fields = getFields();
+
+            Fragment fragment = new PlaceFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("fields", (Serializable) fields);
+            bundle.putString("star", getStarParam());
+            fragment.setArguments(bundle);
+            assert getFragmentManager() != null;
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.main_content, fragment).commit();
+            transaction.hide(this);
+            transaction.replace(R.id.main_content, fragment).commit();
+        });
     }
-
 
 
     @Override
@@ -161,8 +170,11 @@ public class FilterFragment extends Fragment
         Double latitude = location.getLatitude();
         Double longitude = location.getLongitude();
 
+        String dollarParam = getPriceParam();
+
         fields.put("latitude", latitude.toString());
         fields.put("longitude", longitude.toString());
+        fields.put("price", dollarParam);
 
         return fields;
     }
