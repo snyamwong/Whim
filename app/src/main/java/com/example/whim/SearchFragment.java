@@ -1,23 +1,38 @@
 package com.example.whim;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.io.Serializable;
-
 public class SearchFragment extends Fragment
 {
-
     private OnFragmentInteractionListener mListener;
+
+    private View.OnClickListener buttonListener = v ->
+    {
+        String tag = (String) v.getTag();
+
+        Fragment fragment = new FilterFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("cuisine", tag);
+        fragment.setArguments(bundle);
+
+        MainActivity mainActivity = (MainActivity) this.getActivity();
+        mainActivity.hideTabLayout();
+
+        assert getFragmentManager() != null;
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.hide(this);
+        transaction.add(R.id.main_content, fragment);
+        transaction.commit();
+    };
 
     public SearchFragment()
     {
@@ -95,7 +110,7 @@ public class SearchFragment extends Fragment
     @Override
     public void onAttach(Context context)
     {
-        super.onAttach((Activity) context);
+        super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener)
         {
             mListener = (OnFragmentInteractionListener) context;
@@ -112,22 +127,6 @@ public class SearchFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
-
-    private View.OnClickListener buttonListener = v ->
-    {
-        String tag = (String) v.getTag();
-
-        Fragment fragment = new FilterFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("cuisine", tag);
-        fragment.setArguments(bundle);
-
-        assert getFragmentManager() != null;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        transaction.hide(this);
-        transaction.add(R.id.main_content, fragment).commit();
-    };
 
     public interface OnFragmentInteractionListener
     {
