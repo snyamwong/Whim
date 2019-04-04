@@ -12,17 +12,23 @@ import com.yelp.fusion.client.models.Business;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class PlaceFragment extends Fragment {
 
-    private Map fields;
+    private Map<String, String> fields;
 
     public PlaceFragment()
     {
+        fields = new HashMap<>();
+
         Bundle bundle = this.getArguments();
 
-        assert bundle != null;
-        fields = (Map) bundle.getSerializable("fields");
+        if (bundle != null)
+        {
+            fields.put("price", Objects.requireNonNull(bundle.getString("price")));
+
+        }
 
         YelpFusion yelpFusion = new YelpFusion(fields);
 

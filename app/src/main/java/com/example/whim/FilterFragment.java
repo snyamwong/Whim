@@ -73,11 +73,11 @@ public class FilterFragment extends Fragment
         {
             createLocationManager();
 
-            Map<String, String> fields = getFields();
-
             Fragment fragment = new PlaceFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable("fields", (Serializable) fields);
+            bundle.putString("latitude", getLatitude());
+            bundle.putString("longitude", getLongitude());
+            bundle.putString("price", getPriceParam());
             bundle.putString("star", getStarParam());
             fragment.setArguments(bundle);
 
@@ -159,10 +159,8 @@ public class FilterFragment extends Fragment
         });
     }
 
-    private Map<String, String> getFields()
+    private String getLatitude()
     {
-        Map<String, String> fields = new HashMap<>();
-
         if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             // TODO: Consider calling
@@ -174,19 +172,35 @@ public class FilterFragment extends Fragment
             // for ActivityCompat#requestPermissions for more details.
             return null;
         }
+
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         Double latitude = location.getLatitude();
+
+        return latitude.toString();
+    }
+
+    private String getLongitude()
+    {
+        if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return null;
+        }
+
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
         Double longitude = location.getLongitude();
 
-        String dollarParam = getPriceParam();
-
-        fields.put("latitude", latitude.toString());
-        fields.put("longitude", longitude.toString());
-        fields.put("price", dollarParam);
-
-        return fields;
+        return longitude.toString();
     }
+
 
     /**
      * @return
