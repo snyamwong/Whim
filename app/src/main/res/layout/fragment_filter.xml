@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:text="Back"
             android:background="@color/colorPrimary"
-            android:src="@drawable/arrow"
             android:layout_gravity="left"/>
 
     </android.support.v7.widget.Toolbar>
@@ -35,11 +34,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp">
-    <TextView
-        android:id="@+id/Rating"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/selection_rating" />
+        <TextView
+            android:id="@+id/Rating"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/selection_rating" />
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
@@ -50,27 +49,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/excellent"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/four_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/good"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/three_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/neutral"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/two_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/poor"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/one_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bad"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
 
     </LinearLayout>
     <LinearLayout
@@ -93,22 +92,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/costly"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/three_dollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/average"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/two_dollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cheap"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
         <CheckBox android:id="@+id/one_dollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/v_cheap"/>
-            <!--android:onClick="onCheckboxClicked"/>-->
+        <!--android:onClick="onCheckboxClicked"/>-->
 
     </LinearLayout>
 
@@ -144,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-           />
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -216,12 +215,12 @@
 
 
 
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="SUBMIT" />
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="CONFIRM" />
 
 
 

@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
 
-<!--start of fragment_filter strings-->
+    <!--start of fragment_filter strings-->
 
     <string name="selection_p">Select Prices: </string>
     <string name="expensive">$$$$$</string>
@@ -38,7 +38,7 @@
 -->
     <!--End of fragment_filter strings-->
 
-<!-- start of fragment_search strings -->
+    <!-- start of fragment_search strings -->
 
     <string name="burgers">Burgers</string>
     <string name="italian">Italian</string>
