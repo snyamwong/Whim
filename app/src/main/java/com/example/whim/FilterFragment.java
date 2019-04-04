@@ -85,7 +85,7 @@ public class FilterFragment extends Fragment
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
             transaction.hide(this);
-            transaction.show(fragment);
+            transaction.add(R.id.main_content, fragment);
             transaction.commit();
         });
 
