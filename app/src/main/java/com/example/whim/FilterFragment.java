@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import java.io.Serializable;
@@ -71,13 +72,20 @@ public class FilterFragment extends Fragment
 
         buttonSubmit.setOnClickListener(listener ->
         {
+            Bundle prevFragment = this.getArguments();
+
             createLocationManager();
 
             Fragment fragment = new PlaceFragment();
             Bundle bundle = new Bundle();
+            bundle.putString("term", prevFragment.getString("cuisine"));
             bundle.putString("latitude", getLatitude());
             bundle.putString("longitude", getLongitude());
+            bundle.putString("distance", getDistance());
             bundle.putString("price", getPriceParam());
+            bundle.putString("open_now", "" + view.findViewById(R.id.open_now).isSelected());
+            bundle.putString("order_delivery", "" + view.findViewById(R.id.order_delivery).isSelected());
+            bundle.putString("order_takeout", "" + view.findViewById(R.id.order_takeout).isSelected());
             bundle.putString("star", getStarParam());
             fragment.setArguments(bundle);
 
@@ -201,7 +209,6 @@ public class FilterFragment extends Fragment
         return longitude.toString();
     }
 
-
     /**
      * @return
      */
@@ -269,6 +276,35 @@ public class FilterFragment extends Fragment
         }
 
         return String.join(",", star);
+    }
+
+    private String getDistance()
+    {
+        ArrayList<String> distance = new ArrayList<>();
+
+        RadioButton mile_half = getView().findViewById(R.id.half_m);
+        RadioButton mile_one = getView().findViewById(R.id.one_m);
+        RadioButton mile_two_half = getView().findViewById(R.id.twoFive_m);
+        RadioButton mile_five = getView().findViewById(R.id.five_m);
+
+        if (mile_half.isChecked())
+        {
+            return "800";
+        }
+        else if(mile_one.isChecked())
+        {
+            return "1600";
+        }
+        else if(mile_two_half.isChecked())
+        {
+            return "4000";
+        }
+        else if(mile_five.isChecked())
+        {
+            return "8000";
+        }
+
+        return "1600";
     }
 
     /**
