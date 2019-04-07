@@ -14,17 +14,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import static android.content.Context.LOCATION_SERVICE;
@@ -78,15 +72,16 @@ public class FilterFragment extends Fragment
 
             Fragment fragment = new PlaceFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("term", prevFragment.getString("cuisine"));
+            //bundle.putString("term", "restaurant");
+            bundle.putString("categories", prevFragment.getString("categories"));
             bundle.putString("latitude", getLatitude());
             bundle.putString("longitude", getLongitude());
-            bundle.putString("distance", getDistance());
-            bundle.putString("price", getPriceParam());
-            bundle.putString("open_now", "" + view.findViewById(R.id.open_now).isSelected());
-            bundle.putString("order_delivery", "" + view.findViewById(R.id.order_delivery).isSelected());
-            bundle.putString("order_takeout", "" + view.findViewById(R.id.order_takeout).isSelected());
-            bundle.putString("star", getStarParam());
+            //bundle.putString("distance", getDistance());
+            //bundle.putString("price", getPriceParam());
+            //bundle.putString("open_now", "" + view.findViewById(R.id.open_now).isEnabled());
+            bundle.putString("order_delivery", "" + view.findViewById(R.id.order_delivery).isEnabled());
+            bundle.putString("order_takeout", "" + view.findViewById(R.id.order_takeout).isEnabled());
+            //bundle.putString("star", getStarParam());
             fragment.setArguments(bundle);
 
             assert getFragmentManager() != null;
@@ -291,15 +286,15 @@ public class FilterFragment extends Fragment
         {
             return "800";
         }
-        else if(mile_one.isChecked())
+        else if (mile_one.isChecked())
         {
             return "1600";
         }
-        else if(mile_two_half.isChecked())
+        else if (mile_two_half.isChecked())
         {
             return "4000";
         }
-        else if(mile_five.isChecked())
+        else if (mile_five.isChecked())
         {
             return "8000";
         }
