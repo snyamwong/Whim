@@ -20,7 +20,7 @@ public class SearchFragment extends Fragment
 
         Fragment fragment = new FilterFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("cuisine", tag);
+        bundle.putString("categories", tag);
         fragment.setArguments(bundle);
 
         MainActivity mainActivity = (MainActivity) this.getActivity();
@@ -67,7 +67,7 @@ public class SearchFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         Button burgerButton = view.findViewById(R.id.burger);
-        burgerButton.setTag("burger");
+        burgerButton.setTag("burgers");
         burgerButton.setOnClickListener(buttonListener);
 
         Button italianButton = view.findViewById(R.id.italian);

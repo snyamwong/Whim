@@ -21,14 +21,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class PlaceFragment extends Fragment {
+public class PlaceFragment extends Fragment
+{
 
-    private Map<String, String> fields;
-
-    public PlaceFragment()
-    {
-
-    }
+    private Map<String, String> yelpFields, miscFields;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,20 +33,33 @@ public class PlaceFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_place, container, false);
 
-        fields = new HashMap<>();
+        yelpFields = new HashMap<>();
+        miscFields = new HashMap<>();
 
         Bundle bundle = this.getArguments();
 
         if (bundle != null)
         {
-            fields.put("location", "boston, ma");
+            for (String key : bundle.keySet())
+            {
+                if (!key.equals("star") && !key.equals("order_delivery") && !key.equals("order_takeout"))
+                {
+                    yelpFields.put(key, Objects.requireNonNull(bundle.getString(key)));
+
+                    Log.v("PlaceFragment", String.format("%s : %s", key, bundle.getString(key)));
+                }
+                else
+                {
+                    miscFields.put(key, Objects.requireNonNull(bundle.getString(key)));
+                }
+            }
         }
 
-        YelpFusion yelpFusion = new YelpFusion(fields);
+        YelpFusion yelpFusion = new YelpFusion(yelpFields, miscFields);
 
         try
         {
@@ -70,8 +79,7 @@ public class PlaceFragment extends Fragment {
         TextView restNameText = (TextView) view.findViewById(R.id.restaurant_name);
         restNameText.setText(restName);
 
-        new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo))
-                .execute(imageUrl);
+        new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
         return view;
     }
 
@@ -91,28 +99,35 @@ public class PlaceFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
+    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap>
+    {
         ImageView imageView;
 
-        public DownloadImageFromInternet(ImageView imageView) {
+        public DownloadImageFromInternet(ImageView imageView)
+        {
             this.imageView = imageView;
         }
 
-        protected Bitmap doInBackground(String... urls) {
+        protected Bitmap doInBackground(String... urls)
+        {
             String imageURL = urls[0];
             Bitmap bimage = null;
-            try {
+            try
+            {
                 InputStream in = new java.net.URL(imageURL).openStream();
                 bimage = BitmapFactory.decodeStream(in);
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Log.e("Error Message", e.getMessage());
                 e.printStackTrace();
             }
             return bimage;
         }
 
-        protected void onPostExecute(Bitmap result) {
+        protected void onPostExecute(Bitmap result)
+        {
             imageView.setImageBitmap(result);
         }
     }
