@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ public class PlaceFragment extends Fragment
 {
 
     private Map<String, String> yelpFields, miscFields;
+    private WhimDatabaseHelper whimDatabaseHelper;
+    private int restCounter;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,6 +40,7 @@ public class PlaceFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_place, container, false);
 
+        restCounter = 0;
         yelpFields = new HashMap<>();
         miscFields = new HashMap<>();
 
@@ -72,14 +76,58 @@ public class PlaceFragment extends Fragment
             e.printStackTrace();
         }
 
-        ArrayList<Business> businesses = yelpFusion.getBusinesses();
-        String imageUrl = businesses.get(0).getImageUrl();
-        String restName = businesses.get(0).getName();
-
+        ImageButton favorite = (ImageButton) view.findViewById(R.id.favorite_restaurant);
+        ImageButton reroll = (ImageButton) view.findViewById(R.id.new_restaurant);
         TextView restNameText = (TextView) view.findViewById(R.id.restaurant_name);
-        restNameText.setText(restName);
 
-        new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
+        ArrayList<Business> businesses = yelpFusion.getBusinesses();
+        if(businesses.size() > 0) {
+            String imageUrl = businesses.get(0).getImageUrl();
+            String restName = businesses.get(0).getName();
+
+            restNameText.setText(restName);
+
+            new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
+            ImageView restPhoto = (ImageView) view.findViewById(R.id.restaurant_photo);
+            restPhoto.getLayoutParams().width = 700;
+            restPhoto.getLayoutParams().height = 700;
+        } else {
+            restNameText.setText("No Restaurants Found");
+            favorite.setEnabled(false);
+            favorite.setClickable(false);
+            reroll.setEnabled(false);
+            reroll.setClickable(false);
+        }
+
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
+                try {
+                    whimDatabaseHelper.insertData(businesses.get(restCounter));
+                } finally {
+                    whimDatabaseHelper.close();
+                }
+                favorite.setClickable(false);
+                favorite.setEnabled(false);
+            }
+        });
+
+        reroll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restCounter++;
+                if(restCounter >= businesses.size()) {
+                    restCounter = 0;
+                }
+                String imageUrl = businesses.get(restCounter).getImageUrl();
+                String restName = businesses.get(restCounter).getName();
+                restNameText.setText(restName);
+                new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
+                favorite.setClickable(true);
+                favorite.setEnabled(true);
+            }
+        });
         return view;
     }
 

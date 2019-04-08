@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,18 +10,18 @@
         android:id="@+id/restaurant_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Restaurant"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="400dp"
-        android:textSize="24sp"/>
+        android:layout_below="@id/restaurant_photo"
+        android:layout_marginTop="25dp"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"/>
 
     <ImageView
         android:id="@+id/restaurant_photo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="125dp"
-        android:contentDescription="Restaurant"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp" />
 
     <ImageButton
         android:id="@+id/new_restaurant"
@@ -30,8 +30,9 @@
         android:src="@drawable/reroll"
         android:background="#ffffff"
         android:layout_gravity="center|end"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="75dp"/>
+        android:layout_below="@id/restaurant_name"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="250dp"/>
 
     <ImageButton
         android:id="@+id/favorite_restaurant"
@@ -40,6 +41,7 @@
         android:src="@drawable/heart"
         android:background="#ffffff"
         android:layout_gravity="center|start"
-        android:layout_marginTop="150dp"
+        android:layout_below="@id/restaurant_name"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="75dp"/>
-</FrameLayout>
+</RelativeLayout>
