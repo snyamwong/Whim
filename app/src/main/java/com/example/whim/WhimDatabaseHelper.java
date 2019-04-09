@@ -112,4 +112,12 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
 
         return result;
     }
+
+    public Cursor getItemID(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + COL_1 + " FROM " + TABLE_NAME + " WHERE " + COL_2 + " = '" +
+                name + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
 }
