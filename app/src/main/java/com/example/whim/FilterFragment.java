@@ -72,16 +72,16 @@ public class FilterFragment extends Fragment
 
             Fragment fragment = new PlaceFragment();
             Bundle bundle = new Bundle();
-            //bundle.putString("term", "restaurant");
+            bundle.putString("term", "restaurant");
             bundle.putString("categories", prevFragment.getString("categories"));
             bundle.putString("latitude", getLatitude());
             bundle.putString("longitude", getLongitude());
-            //bundle.putString("distance", getDistance());
-            //bundle.putString("price", getPriceParam());
-            //bundle.putString("open_now", "" + view.findViewById(R.id.open_now).isEnabled());
+            bundle.putString("radius", getDistance());
+            bundle.putString("price", getPriceParam());
+            bundle.putString("open_now", "" + view.findViewById(R.id.open_now).isEnabled());
             bundle.putString("order_delivery", "" + view.findViewById(R.id.order_delivery).isEnabled());
             bundle.putString("order_takeout", "" + view.findViewById(R.id.order_takeout).isEnabled());
-            //bundle.putString("star", getStarParam());
+            bundle.putString("star", getStarParam());
             fragment.setArguments(bundle);
 
             assert getFragmentManager() != null;
