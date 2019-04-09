@@ -1,5 +1,6 @@
 package com.example.whim;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -80,6 +81,7 @@ public class PlaceFragment extends Fragment
         ImageButton reroll = (ImageButton) view.findViewById(R.id.new_restaurant);
         TextView restNameText = (TextView) view.findViewById(R.id.restaurant_name);
 
+        whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
         ArrayList<Business> businesses = yelpFusion.getBusinesses();
         if(businesses.size() > 0) {
             String imageUrl = businesses.get(0).getImageUrl();
@@ -91,6 +93,28 @@ public class PlaceFragment extends Fragment
             ImageView restPhoto = (ImageView) view.findViewById(R.id.restaurant_photo);
             restPhoto.getLayoutParams().width = 700;
             restPhoto.getLayoutParams().height = 700;
+
+            final Cursor data = whimDatabaseHelper.getItemID(restName);
+            int itemId;
+            try {
+                itemId = -1;
+                while(data.moveToNext()) {
+                    itemId = data.getInt(data.getColumnIndex("ID"));
+                }
+            } finally {
+                if(!data.isClosed()) {
+                    data.close();
+                }
+                whimDatabaseHelper.close();
+            }
+
+            if(itemId > -1) {
+                favorite.setClickable(false);
+                favorite.setEnabled(false);
+            } else {
+                favorite.setClickable(true);
+                favorite.setEnabled(true);
+            }
         } else {
             restNameText.setText("No Restaurants Found");
             favorite.setEnabled(false);
@@ -102,7 +126,6 @@ public class PlaceFragment extends Fragment
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
                 try {
                     whimDatabaseHelper.insertData(businesses.get(restCounter));
                 } finally {
@@ -113,6 +136,7 @@ public class PlaceFragment extends Fragment
             }
         });
 
+        whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
         reroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,8 +148,28 @@ public class PlaceFragment extends Fragment
                 String restName = businesses.get(restCounter).getName();
                 restNameText.setText(restName);
                 new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
-                favorite.setClickable(true);
-                favorite.setEnabled(true);
+
+                final Cursor data = whimDatabaseHelper.getItemID(restName);
+                int itemId;
+                try {
+                    itemId = -1;
+                    while(data.moveToNext()) {
+                        itemId = data.getInt(data.getColumnIndex("ID"));
+                    }
+                } finally {
+                    if(!data.isClosed()) {
+                        data.close();
+                    }
+                    whimDatabaseHelper.close();
+                }
+
+                if(itemId > -1) {
+                    favorite.setClickable(false);
+                    favorite.setEnabled(false);
+                } else {
+                    favorite.setClickable(true);
+                    favorite.setEnabled(true);
+                }
             }
         });
         return view;
