@@ -233,6 +233,11 @@ public class FilterFragment extends Fragment
             price.add("1");
         }
 
+        if (price.isEmpty())
+        {
+            return "4,3,2,1";
+        }
+
         return String.join(",", price);
     }
 
@@ -243,16 +248,11 @@ public class FilterFragment extends Fragment
     {
         ArrayList<String> star = new ArrayList<>();
 
-        CheckBox fiveStar = getView().findViewById(R.id.five_star);
         CheckBox fourStar = getView().findViewById(R.id.four_star);
         CheckBox threeStar = getView().findViewById(R.id.three_star);
         CheckBox twoStar = getView().findViewById(R.id.two_star);
         CheckBox oneStar = getView().findViewById(R.id.one_star);
 
-        if (fiveStar.isChecked())
-        {
-            star.add("5");
-        }
         if (fourStar.isChecked())
         {
             star.add("4");
@@ -268,6 +268,11 @@ public class FilterFragment extends Fragment
         if (oneStar.isChecked())
         {
             star.add("1");
+        }
+
+        if(star.isEmpty())
+        {
+            return "4,3,2,1";
         }
 
         return String.join(",", star);
