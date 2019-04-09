@@ -8,19 +8,20 @@
 
     <!--start of fragment_filter strings-->
 
-    <string name="selection_p">Select Prices: </string>
+    <string name="selection_p">Select Prices</string>
     <string name="expensive">$$$$$</string>
     <string name="costly">$$$$</string>
     <string name="average">$$$</string>
     <string name="cheap">$$</string>
     <string name="v_cheap">$</string>
 
-    <string name="selection_rating">Select Ratings:</string>
+    <string name="selection_rating">Select Ratings</string>
     <string name="excellent">*****</string>
     <string name="good">****</string>
     <string name="neutral">***</string>
     <string name="poor">**</string>
     <string name="bad">*</string>
+
     <string name="order_takeout">Order Takeout</string>
     <string name="distance">Distance</string>
     <string name="confirm">Confirm</string>
@@ -28,14 +29,6 @@
     <string name="open_now">Open Now</string>
     <string name="order_delivery">Order Delivery</string>
 
-    <!--<string-array name="miles">
-        <Item>0.5 miles</Item>
-        <Item>1.0 mile</Item>
-        <Item>2.5 miles</Item>
-        <Item>5.0 miles</Item>
-        <Item>10.0 miles</Item>
-    </string-array>
--->
     <!--End of fragment_filter strings-->
 
     <!-- start of fragment_search strings -->

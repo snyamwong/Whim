@@ -39,14 +39,14 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         String createTable = String.format("create table if not exists %s " +
-                "(ID PRIMARY KEY TEXT, " +
+                "(ID INT, " +
                 "NAME TEXT, " +
                 "RATING FLOAT, " +
                 "PRICE TEXT, " +
                 "CITY TEXT, " +
                 "STATE TEXT, " +
                 "ADDRESS TEXT, " +
-                "ZIP_CODE INT," +
+                "ZIP_CODE TEXT," +
                 "IMAGE TEXT)", TABLE_NAME);
 
         db.execSQL(createTable);
