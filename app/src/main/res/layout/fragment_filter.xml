@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,207 +21,205 @@
             android:layout_gravity="center_horizontal"
             android:textSize="32dp"
             android:textColor="#ffffff"/>
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:background="@color/colorPrimary"
-            android:layout_gravity="left"/>
 
     </android.support.v7.widget.Toolbar>
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/rating_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp">
-        <TextView
-            android:id="@+id/Rating"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/selection_rating" />
-    </LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
+        android:layout_below="@+id/toolbar2"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:text="@string/selection_rating" />
+
+    <LinearLayout
+        android:id="@+id/rating_checkboxes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp">
-        <CheckBox android:id="@+id/five_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/excellent"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rating_text"
+        android:layout_margin="4dp"
+        android:padding="4dp" >
+
         <CheckBox android:id="@+id/four_star"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/good"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
+
         <CheckBox android:id="@+id/three_star"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/neutral"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
+
         <CheckBox android:id="@+id/two_star"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/poor"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
+
         <CheckBox android:id="@+id/one_star"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/bad"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
+    </LinearLayout>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp">
     <TextView
-        android:id="@+id/prices"
+        android:id="@+id/prices_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rating_checkboxes"
+        android:layout_margin="4dp"
+        android:padding="4dp"
         android:text="@string/selection_p" />
-    </LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
+
+    <LinearLayout
+        android:id="@+id/prices_checkboxes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="175dp">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/prices_text"
+        android:layout_margin="4dp"
+        android:padding="4dp" >
 
         <CheckBox android:id="@+id/four_dollar"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/costly"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
+
         <CheckBox android:id="@+id/three_dollar"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/average"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
+
         <CheckBox android:id="@+id/two_dollar"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/cheap"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
+
         <CheckBox android:id="@+id/one_dollar"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/v_cheap"/>
-        <!--android:onClick="onCheckboxClicked"/>-->
-
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/open_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="225dp">
+        android:layout_gravity="start"
+        android:layout_below="@+id/prices_checkboxes"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:text="Open Now" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="Open Now" />
-
-        <Switch
-            android:id="@+id/open_now"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textColorHighlight="@color/colorAccent" />
-    </LinearLayout>
-    <LinearLayout
+    <Switch
+        android:id="@+id/open_now"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="275dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Order Delivery"
-            android:layout_gravity="left"/>
-        <Switch
-            android:id="@+id/order_delivery"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            />
-    </LinearLayout>
+        android:layout_gravity="end"
+        android:layout_below="@+id/prices_checkboxes"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:textColorHighlight="@color/colorAccent" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/delivery_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="325dp">
+        android:layout_gravity="start"
+        android:layout_below="@+id/open_text"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:text="Order Delivery" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="Order Takeout" />
-
-        <Switch
-            android:id="@+id/order_takeout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:checked="false" />
-    </LinearLayout>
-
-    <LinearLayout
+    <Switch
+        android:id="@+id/order_delivery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="370dp">
+        android:layout_gravity="end"
+        android:layout_below="@+id/open_text"
+        android:layout_margin="4dp"
+        android:padding="4dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/takeout_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_below="@+id/delivery_text"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:text="Order Takeout" />
+
+    <Switch
+        android:id="@+id/order_takeout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_below="@+id/delivery_text"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:checked="false" />
+
+    <TextView
+        android:id="@+id/distance_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_takeout"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:text="Distance" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/distance_text"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/half_m"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Distance: " />
+            android:text="0.5 Miles" />
 
-        <!--<Spinner
-            android:id="@+id/distance_spinner"
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/one_m"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"></Spinner>
-        -->
+            android:text="1 Mile" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/half_m"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0.5 Miles" />
-            <RadioButton
-                android:id="@+id/one_m"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1 Mile" />
-            <RadioButton
-                android:id="@+id/twoFive_m"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2.5 Miles" />
-            <RadioButton
-                android:id="@+id/five_m"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5 Miles" />
-        </RadioGroup>
+        <RadioButton
+            android:id="@+id/twoFive_m"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="2.5 Miles" />
 
-
-
-
-    </LinearLayout>
-
-
+        <RadioButton
+            android:id="@+id/five_m"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="5 Miles" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:background="@color/secondaryColor"
         android:text="CONFIRM" />
 
-
-
-</FrameLayout>
+</RelativeLayout>
