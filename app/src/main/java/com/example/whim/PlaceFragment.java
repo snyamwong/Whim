@@ -80,14 +80,17 @@ public class PlaceFragment extends Fragment
         ImageButton favorite = (ImageButton) view.findViewById(R.id.favorite_restaurant);
         ImageButton reroll = (ImageButton) view.findViewById(R.id.new_restaurant);
         TextView restNameText = (TextView) view.findViewById(R.id.restaurant_name);
+        TextView restAddressText = (TextView) view.findViewById(R.id.restaurant_address);
 
         whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
         ArrayList<Business> businesses = yelpFusion.getBusinesses();
         if(businesses.size() > 0) {
             String imageUrl = businesses.get(0).getImageUrl();
             String restName = businesses.get(0).getName();
+            String restAddress = businesses.get(0).getLocation().getAddress1();
 
             restNameText.setText(restName);
+            restAddressText.setText(restAddress);
 
             new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
             ImageView restPhoto = (ImageView) view.findViewById(R.id.restaurant_photo);
@@ -146,7 +149,9 @@ public class PlaceFragment extends Fragment
                 }
                 String imageUrl = businesses.get(restCounter).getImageUrl();
                 String restName = businesses.get(restCounter).getName();
+                String restAddress = businesses.get(restCounter).getLocation().getAddress1();
                 restNameText.setText(restName);
+                restAddressText.setText(restAddress);
                 new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
 
                 final Cursor data = whimDatabaseHelper.getItemID(restName);
