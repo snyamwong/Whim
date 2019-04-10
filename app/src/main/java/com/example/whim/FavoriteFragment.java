@@ -70,7 +70,7 @@ public class FavoriteFragment extends Fragment
 
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerAdapter adapter = new RecyclerAdapter();
+        RecyclerAdapter adapter = new RecyclerAdapter(this);
 
         recyclerView.setAdapter(adapter);
 

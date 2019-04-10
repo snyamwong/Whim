@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,41 +43,47 @@ public class PlaceFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_place, container, false);
 
-        restCounter = 0;
-        yelpFields = new HashMap<>();
-        miscFields = new HashMap<>();
-
-        Bundle bundle = this.getArguments();
-
-        if (bundle != null)
+        if (getCallerFragment().equals("FavoriteFragment"))
         {
-            for (String key : bundle.keySet())
-            {
-                if (!key.equals("star") && !key.equals("order_delivery") && !key.equals("order_takeout"))
-                {
-                    yelpFields.put(key, Objects.requireNonNull(bundle.getString(key)));
 
-                    Log.v("PlaceFragment", String.format("%s : %s", key, bundle.getString(key)));
-                }
-                else
+        }
+        else if (getCallerFragment().equals("FilterFragment"))
+        {
+            restCounter = 0;
+            yelpFields = new HashMap<>();
+            miscFields = new HashMap<>();
+
+            Bundle bundle = this.getArguments();
+
+            if (bundle != null)
+            {
+                for (String key : bundle.keySet())
                 {
-                    miscFields.put(key, Objects.requireNonNull(bundle.getString(key)));
+                    if (!key.equals("star") && !key.equals("order_delivery") && !key.equals("order_takeout"))
+                    {
+                        yelpFields.put(key, Objects.requireNonNull(bundle.getString(key)));
+
+                        Log.v("PlaceFragment", String.format("%s : %s", key, bundle.getString(key)));
+                    }
+                    else
+                    {
+                        miscFields.put(key, Objects.requireNonNull(bundle.getString(key)));
+                    }
                 }
             }
-        }
 
-        YelpFusion yelpFusion = new YelpFusion(yelpFields, miscFields);
+            YelpFusion yelpFusion = new YelpFusion(yelpFields, miscFields);
 
-        try
-        {
-            yelpFusion.start();
+            try
+            {
+                yelpFusion.start();
 
-            yelpFusion.join();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+                yelpFusion.join();
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
 
         ImageButton favorite = (ImageButton) view.findViewById(R.id.favorite_restaurant);
         ImageButton unfavorite = (ImageButton) view.findViewById(R.id.unfavorite_restaurant);
@@ -134,7 +140,9 @@ public class PlaceFragment extends Fragment
             public void onClick(View v) {
                 try {
                     whimDatabaseHelper.insertData(businesses.get(restCounter));
-                } finally {
+                }
+                finally
+                {
                     whimDatabaseHelper.close();
                 }
                 favorite.setVisibility(View.INVISIBLE);
@@ -168,7 +176,8 @@ public class PlaceFragment extends Fragment
             @Override
             public void onClick(View v) {
                 restCounter++;
-                if(restCounter >= businesses.size()) {
+                if (restCounter >= businesses.size())
+                {
                     restCounter = 0;
                 }
                 String imageUrl = businesses.get(restCounter).getImageUrl();
@@ -220,6 +229,24 @@ public class PlaceFragment extends Fragment
         });
 
         return view;
+    }
+
+    private String getCallerFragment()
+    {
+        assert getFragmentManager() != null;
+
+        FragmentManager fm = getFragmentManager();
+
+        int count = fm.getBackStackEntryCount();
+
+        Log.v("PlaceFragment", "" + count);
+
+        for(int entry = 0; entry < count; entry++)
+        {
+            Log.i("PlaceFragment", "Found fragment: " + fm.getBackStackEntryAt(entry).getId());
+        }
+
+        return "";
     }
 
     /**

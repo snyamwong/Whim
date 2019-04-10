@@ -1,5 +1,8 @@
 package com.example.whim;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,13 @@ import android.widget.TextView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
 {
+    private Fragment fragment;
+    
+    public RecyclerAdapter(Fragment fragment)
+    {
+        this.fragment = fragment;
+    }
+    
     private String[] titles = {"Chapter One",
             "Chapter Two",
             "Chapter Three",
@@ -28,7 +38,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i)
     {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_favorite_card_layout, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(v);
+
+        ViewHolder viewHolder = new ViewHolder(v, fragment);
+
         return viewHolder;
     }
 
@@ -52,9 +64,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         TextView itemTitle;
         TextView itemDetail;
 
-        ViewHolder(View itemView)
+        ViewHolder(View itemView, Fragment fragment)
         {
             super(itemView);
+
             itemImage = itemView.findViewById(R.id.item_image);
             itemTitle = itemView.findViewById(R.id.item_title);
             itemDetail = itemView.findViewById(R.id.item_detail);
@@ -62,6 +75,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             itemView.setOnClickListener(v ->
             {
                 // PlaceFragment code here
+                Fragment placeFragment = new PlaceFragment();
+
+                assert fragment.getFragmentManager() != null;
+                FragmentTransaction transaction = fragment.getFragmentManager().beginTransaction();
+
+                transaction.hide(fragment);
+                transaction.add(R.id.main_content, placeFragment);
+                transaction.addToBackStack("FavoriteFragment");
+                transaction.commit();
             });
         }
     }
