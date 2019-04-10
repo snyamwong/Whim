@@ -3,7 +3,6 @@ package com.example.whim;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,11 +23,6 @@ public class FavoriteFragment extends Fragment
 {
 
     private OnFragmentInteractionListener mListener;
-
-    public FavoriteFragment()
-    {
-        // Required empty public constructor
-    }
 
     /**
      * Use this factory method to create a new instance of
@@ -75,15 +69,6 @@ public class FavoriteFragment extends Fragment
         recyclerView.setAdapter(adapter);
 
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri)
-    {
-        if (mListener != null)
-        {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
