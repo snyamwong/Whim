@@ -39,7 +39,7 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         String createTable = String.format("create table if not exists %s " +
-                "(ID INT, " +
+                "(ID TEXT, " +
                 "NAME TEXT, " +
                 "RATING FLOAT, " +
                 "PRICE TEXT, " +
@@ -64,12 +64,12 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_1, business.getId());
-        values.put(COL_2, business.getName());
+        values.put(COL_2, business.getName().replaceAll("'", ""));
         values.put(COL_3, business.getRating());
         values.put(COL_4, business.getPrice());
         values.put(COL_5, business.getLocation().getCity());
         values.put(COL_6, business.getLocation().getState());
-        values.put(COL_7, business.getLocation().getAddress1());
+        values.put(COL_7, business.getLocation().getAddress1().replaceAll("'", ""));
         values.put(COL_8, business.getLocation().getZipCode());
         values.put(COL_9, business.getImageUrl());
 
@@ -84,7 +84,7 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_NAME, COLUMNS, "*", null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, COLUMNS, null, null, null, null, null);
         cursor.moveToFirst();
 
         while(cursor.moveToNext())
@@ -96,13 +96,13 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
             business.setPrice(cursor.getString(3));
 
             Location location = new Location();
-            location.setCity(cursor.getString(5));
-            location.setState(cursor.getString(6));
-            location.setAddress1(cursor.getString(7));
-            location.setZipCode(cursor.getString(8));
+            location.setCity(cursor.getString(4));
+            location.setState(cursor.getString(5));
+            location.setAddress1(cursor.getString(6));
+            location.setZipCode(cursor.getString(7));
             business.setLocation(location);
 
-            business.setImageUrl(cursor.getString(9));
+            business.setImageUrl(cursor.getString(8));
 
             result.add(business);
         }
@@ -113,10 +113,16 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
         return result;
     }
 
-    public Cursor getItemID(String name) {
+    public void deleteRestaurant(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT " + COL_1 + " FROM " + TABLE_NAME + " WHERE " + COL_2 + " = '" +
-                name + "'";
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + id + "'";
+        db.execSQL(query);
+    }
+
+    public Cursor getRestaurant(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" +
+                id + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
     }

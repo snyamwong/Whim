@@ -7,10 +7,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -78,28 +80,33 @@ public class PlaceFragment extends Fragment
         }
 
         ImageButton favorite = (ImageButton) view.findViewById(R.id.favorite_restaurant);
+        ImageButton unfavorite = (ImageButton) view.findViewById(R.id.unfavorite_restaurant);
         ImageButton reroll = (ImageButton) view.findViewById(R.id.new_restaurant);
         TextView restNameText = (TextView) view.findViewById(R.id.restaurant_name);
+        TextView restAddressText = (TextView) view.findViewById(R.id.restaurant_address);
+        Button returnHome = (Button) view.findViewById(R.id.return_home);
 
         whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
         ArrayList<Business> businesses = yelpFusion.getBusinesses();
         if(businesses.size() > 0) {
             String imageUrl = businesses.get(0).getImageUrl();
-            String restName = businesses.get(0).getName();
+            String restName = businesses.get(0).getName().replaceAll("'", "");
+            String restAddress = businesses.get(0).getLocation().getAddress1().replaceAll("'", "");
 
             restNameText.setText(restName);
+            restAddressText.setText(restAddress);
 
             new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
             ImageView restPhoto = (ImageView) view.findViewById(R.id.restaurant_photo);
             restPhoto.getLayoutParams().width = 700;
             restPhoto.getLayoutParams().height = 700;
 
-            final Cursor data = whimDatabaseHelper.getItemID(restName);
-            int itemId;
+            final Cursor data = whimDatabaseHelper.getRestaurant(businesses.get(0).getId());
+            String itemId;
             try {
-                itemId = -1;
+                itemId = "";
                 while(data.moveToNext()) {
-                    itemId = data.getInt(data.getColumnIndex("ID"));
+                    itemId = data.getString(data.getColumnIndex("ID"));
                 }
             } finally {
                 if(!data.isClosed()) {
@@ -108,19 +115,18 @@ public class PlaceFragment extends Fragment
                 whimDatabaseHelper.close();
             }
 
-            if(itemId > -1) {
-                favorite.setClickable(false);
-                favorite.setEnabled(false);
+            if(itemId.equals("")) {
+                unfavorite.setVisibility(View.INVISIBLE);
+                favorite.setVisibility(View.VISIBLE);
             } else {
-                favorite.setClickable(true);
-                favorite.setEnabled(true);
+                favorite.setVisibility(View.INVISIBLE);
+                unfavorite.setVisibility(View.VISIBLE);
             }
         } else {
             restNameText.setText("No Restaurants Found");
-            favorite.setEnabled(false);
-            favorite.setClickable(false);
-            reroll.setEnabled(false);
-            reroll.setClickable(false);
+            favorite.setVisibility(View.INVISIBLE);
+            unfavorite.setVisibility(View.INVISIBLE);
+            reroll.setVisibility(View.INVISIBLE);
         }
 
         favorite.setOnClickListener(new View.OnClickListener() {
@@ -131,8 +137,29 @@ public class PlaceFragment extends Fragment
                 } finally {
                     whimDatabaseHelper.close();
                 }
-                favorite.setClickable(false);
-                favorite.setEnabled(false);
+                favorite.setVisibility(View.INVISIBLE);
+                unfavorite.setVisibility(View.VISIBLE);
+            }
+        });
+
+        whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
+        unfavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String restName = businesses.get(restCounter).getName().replaceAll("'", "");
+                Cursor data = whimDatabaseHelper.getRestaurant(businesses.get(restCounter).getId());
+                try {
+                    if(data.moveToFirst()) {
+                        whimDatabaseHelper.deleteRestaurant(data.getString(data.getColumnIndex("ID")));
+                    }
+                } finally {
+                    if(!data.isClosed()) {
+                        data.close();
+                    }
+                    whimDatabaseHelper.close();
+                }
+                favorite.setVisibility(View.VISIBLE);
+                unfavorite.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -145,16 +172,18 @@ public class PlaceFragment extends Fragment
                     restCounter = 0;
                 }
                 String imageUrl = businesses.get(restCounter).getImageUrl();
-                String restName = businesses.get(restCounter).getName();
+                String restName = businesses.get(restCounter).getName().replaceAll("'", "");
+                String restAddress = businesses.get(restCounter).getLocation().getAddress1().replaceAll("'", "");
                 restNameText.setText(restName);
+                restAddressText.setText(restAddress);
                 new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
 
-                final Cursor data = whimDatabaseHelper.getItemID(restName);
-                int itemId;
+                final Cursor data = whimDatabaseHelper.getRestaurant(businesses.get(restCounter).getId());
+                String itemId;
                 try {
-                    itemId = -1;
+                    itemId = "";
                     while(data.moveToNext()) {
-                        itemId = data.getInt(data.getColumnIndex("ID"));
+                        itemId = data.getString(data.getColumnIndex("ID"));
                     }
                 } finally {
                     if(!data.isClosed()) {
@@ -163,15 +192,33 @@ public class PlaceFragment extends Fragment
                     whimDatabaseHelper.close();
                 }
 
-                if(itemId > -1) {
-                    favorite.setClickable(false);
-                    favorite.setEnabled(false);
+                if(itemId.equals("")) {
+                    unfavorite.setVisibility(View.INVISIBLE);
+                    favorite.setVisibility(View.VISIBLE);
                 } else {
-                    favorite.setClickable(true);
-                    favorite.setEnabled(true);
+                    favorite.setVisibility(View.INVISIBLE);
+                    unfavorite.setVisibility(View.VISIBLE);
                 }
             }
         });
+
+        returnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity mainActivity = (MainActivity) PlaceFragment.this.getActivity();
+                mainActivity.showSupportActionBar();
+                mainActivity.showTabLayout();
+
+                Fragment fragment = new SearchFragment();
+                assert getFragmentManager() != null;
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                transaction.hide(PlaceFragment.this);
+                transaction.add(R.id.main_content, fragment);
+                transaction.commit();
+            }
+        });
+
         return view;
     }
 

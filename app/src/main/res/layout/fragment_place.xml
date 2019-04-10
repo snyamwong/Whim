@@ -16,6 +16,16 @@
         android:textSize="24sp"
         android:layout_centerHorizontal="true"/>
 
+    <TextView
+        android:id="@+id/restaurant_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/restaurant_name"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"/>
+
     <ImageView
         android:id="@+id/restaurant_photo"
         android:layout_width="match_parent"
@@ -44,4 +54,27 @@
         android:layout_below="@id/restaurant_name"
         android:layout_marginTop="50dp"
         android:layout_marginStart="75dp"/>
+
+    <ImageButton
+        android:id="@+id/unfavorite_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/heart_crossed"
+        android:background="#ffffff"
+        android:layout_gravity="center|start"
+        android:layout_below="@id/restaurant_name"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="75dp"/>
+
+    <Button
+        android:id="@+id/return_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return To Home"
+        android:textStyle="bold"
+        android:background="@drawable/buttonstyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/favorite_restaurant"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
