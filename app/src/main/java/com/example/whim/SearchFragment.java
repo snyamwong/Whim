@@ -31,6 +31,7 @@ public class SearchFragment extends Fragment
 
         transaction.hide(this);
         transaction.add(R.id.main_content, fragment);
+        transaction.addToBackStack("SearchFragment");
         transaction.commit();
     };
 
