@@ -38,16 +38,7 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String createTable = String.format("create table if not exists %s " +
-                "(ID TEXT, " +
-                "NAME TEXT, " +
-                "RATING FLOAT, " +
-                "PRICE TEXT, " +
-                "CITY TEXT, " +
-                "STATE TEXT, " +
-                "ADDRESS TEXT, " +
-                "ZIP_CODE TEXT," +
-                "IMAGE TEXT)", TABLE_NAME);
+        String createTable = String.format("create table if not exists %s " + "(ID TEXT, " + "NAME TEXT, " + "RATING FLOAT, " + "PRICE TEXT, " + "CITY TEXT, " + "STATE TEXT, " + "ADDRESS TEXT, " + "ZIP_CODE TEXT," + "IMAGE TEXT)", TABLE_NAME);
 
         db.execSQL(createTable);
     }
@@ -87,7 +78,7 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
         Cursor cursor = db.query(TABLE_NAME, COLUMNS, null, null, null, null, null);
         cursor.moveToFirst();
 
-        while(cursor.moveToNext())
+        while (cursor.moveToNext())
         {
             Business business = new Business();
             business.setId(cursor.getString(0));
@@ -113,16 +104,17 @@ public class WhimDatabaseHelper extends SQLiteOpenHelper
         return result;
     }
 
-    public void deleteRestaurant(String id) {
+    public void deleteRestaurant(String id)
+    {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + id + "'";
         db.execSQL(query);
     }
 
-    public Cursor getRestaurant(String id) {
+    public Cursor getRestaurant(String id)
+    {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" +
-                id + "'";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + id + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
     }

@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,11 +44,9 @@ public class PlaceFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_place, container, false);
 
-        if (getCallerFragment().equals("FavoriteFragment"))
-        {
+        String prevFragment = getCallerFragment();
 
-        }
-        else if (getCallerFragment().equals("FilterFragment"))
+        if (prevFragment.equals("FilterFragment"))
         {
             restCounter = 0;
             yelpFields = new HashMap<>();
@@ -85,60 +84,71 @@ public class PlaceFragment extends Fragment
                 e.printStackTrace();
             }
 
-        ImageButton favorite = (ImageButton) view.findViewById(R.id.favorite_restaurant);
-        ImageButton unfavorite = (ImageButton) view.findViewById(R.id.unfavorite_restaurant);
-        ImageButton reroll = (ImageButton) view.findViewById(R.id.new_restaurant);
-        TextView restNameText = (TextView) view.findViewById(R.id.restaurant_name);
-        TextView restAddressText = (TextView) view.findViewById(R.id.restaurant_address);
-        Button returnHome = (Button) view.findViewById(R.id.return_home);
+            ImageButton favorite = (ImageButton) view.findViewById(R.id.favorite_restaurant);
+            ImageButton unfavorite = (ImageButton) view.findViewById(R.id.unfavorite_restaurant);
+            ImageButton reroll = (ImageButton) view.findViewById(R.id.new_restaurant);
+            TextView restNameText = (TextView) view.findViewById(R.id.restaurant_name);
+            TextView restAddressText = (TextView) view.findViewById(R.id.restaurant_address);
+            Button returnHome = (Button) view.findViewById(R.id.return_home);
 
-        whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
-        ArrayList<Business> businesses = yelpFusion.getBusinesses();
-        if(businesses.size() > 0) {
-            String imageUrl = businesses.get(0).getImageUrl();
-            String restName = businesses.get(0).getName().replaceAll("'", "");
-            String restAddress = businesses.get(0).getLocation().getAddress1().replaceAll("'", "");
+            whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
+            ArrayList<Business> businesses = yelpFusion.getBusinesses();
+            if (businesses.size() > 0)
+            {
+                String imageUrl = businesses.get(0).getImageUrl();
+                String restName = businesses.get(0).getName().replaceAll("'", "");
+                String restAddress = businesses.get(0).getLocation().getAddress1().replaceAll("'", "");
 
-            restNameText.setText(restName);
-            restAddressText.setText(restAddress);
+                restNameText.setText(restName);
+                restAddressText.setText(restAddress);
 
-            new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
-            ImageView restPhoto = (ImageView) view.findViewById(R.id.restaurant_photo);
-            restPhoto.getLayoutParams().width = 700;
-            restPhoto.getLayoutParams().height = 700;
+                new DownloadImageFromInternet((ImageView) view.findViewById(R.id.restaurant_photo)).execute(imageUrl);
+                ImageView restPhoto = (ImageView) view.findViewById(R.id.restaurant_photo);
+                restPhoto.getLayoutParams().width = 700;
+                restPhoto.getLayoutParams().height = 700;
 
-            final Cursor data = whimDatabaseHelper.getRestaurant(businesses.get(0).getId());
-            String itemId;
-            try {
-                itemId = "";
-                while(data.moveToNext()) {
-                    itemId = data.getString(data.getColumnIndex("ID"));
+                final Cursor data = whimDatabaseHelper.getRestaurant(businesses.get(0).getId());
+                String itemId;
+                try
+                {
+                    itemId = "";
+                    while (data.moveToNext())
+                    {
+                        itemId = data.getString(data.getColumnIndex("ID"));
+                    }
                 }
-            } finally {
-                if(!data.isClosed()) {
-                    data.close();
+                finally
+                {
+                    if (!data.isClosed())
+                    {
+                        data.close();
+                    }
+                    whimDatabaseHelper.close();
                 }
-                whimDatabaseHelper.close();
+
+                if (itemId.equals(""))
+                {
+                    unfavorite.setVisibility(View.INVISIBLE);
+                    favorite.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    favorite.setVisibility(View.INVISIBLE);
+                    unfavorite.setVisibility(View.VISIBLE);
+                }
             }
-
-            if(itemId.equals("")) {
-                unfavorite.setVisibility(View.INVISIBLE);
-                favorite.setVisibility(View.VISIBLE);
-            } else {
+            else
+            {
+                restNameText.setText("No Restaurants Found");
                 favorite.setVisibility(View.INVISIBLE);
-                unfavorite.setVisibility(View.VISIBLE);
+                unfavorite.setVisibility(View.INVISIBLE);
+                reroll.setVisibility(View.INVISIBLE);
             }
-        } else {
-            restNameText.setText("No Restaurants Found");
-            favorite.setVisibility(View.INVISIBLE);
-            unfavorite.setVisibility(View.INVISIBLE);
-            reroll.setVisibility(View.INVISIBLE);
-        }
 
-        favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
+            favorite.setOnClickListener(v ->
+            {
+                try
+                {
                     whimDatabaseHelper.insertData(businesses.get(restCounter));
                 }
                 finally
@@ -147,34 +157,35 @@ public class PlaceFragment extends Fragment
                 }
                 favorite.setVisibility(View.INVISIBLE);
                 unfavorite.setVisibility(View.VISIBLE);
-            }
-        });
+            });
 
-        whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
-        unfavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
+            unfavorite.setOnClickListener(v ->
+            {
                 String restName = businesses.get(restCounter).getName().replaceAll("'", "");
                 Cursor data = whimDatabaseHelper.getRestaurant(businesses.get(restCounter).getId());
-                try {
-                    if(data.moveToFirst()) {
+                try
+                {
+                    if (data.moveToFirst())
+                    {
                         whimDatabaseHelper.deleteRestaurant(data.getString(data.getColumnIndex("ID")));
                     }
-                } finally {
-                    if(!data.isClosed()) {
+                }
+                finally
+                {
+                    if (!data.isClosed())
+                    {
                         data.close();
                     }
                     whimDatabaseHelper.close();
                 }
                 favorite.setVisibility(View.VISIBLE);
                 unfavorite.setVisibility(View.INVISIBLE);
-            }
-        });
+            });
 
-        whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
-        reroll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            whimDatabaseHelper = new WhimDatabaseHelper(PlaceFragment.this.getActivity());
+            reroll.setOnClickListener(v ->
+            {
                 restCounter++;
                 if (restCounter >= businesses.size())
                 {
@@ -189,31 +200,37 @@ public class PlaceFragment extends Fragment
 
                 final Cursor data = whimDatabaseHelper.getRestaurant(businesses.get(restCounter).getId());
                 String itemId;
-                try {
+                try
+                {
                     itemId = "";
-                    while(data.moveToNext()) {
+                    while (data.moveToNext())
+                    {
                         itemId = data.getString(data.getColumnIndex("ID"));
                     }
-                } finally {
-                    if(!data.isClosed()) {
+                }
+                finally
+                {
+                    if (!data.isClosed())
+                    {
                         data.close();
                     }
                     whimDatabaseHelper.close();
                 }
 
-                if(itemId.equals("")) {
+                if (itemId.equals(""))
+                {
                     unfavorite.setVisibility(View.INVISIBLE);
                     favorite.setVisibility(View.VISIBLE);
-                } else {
+                }
+                else
+                {
                     favorite.setVisibility(View.INVISIBLE);
                     unfavorite.setVisibility(View.VISIBLE);
                 }
-            }
-        });
+            });
 
-        returnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            returnHome.setOnClickListener(v ->
+            {
                 MainActivity mainActivity = (MainActivity) PlaceFragment.this.getActivity();
                 mainActivity.showSupportActionBar();
                 mainActivity.showTabLayout();
@@ -225,8 +242,8 @@ public class PlaceFragment extends Fragment
                 transaction.hide(PlaceFragment.this);
                 transaction.add(R.id.main_content, fragment);
                 transaction.commit();
-            }
-        });
+            });
+        }
 
         return view;
     }
@@ -239,14 +256,7 @@ public class PlaceFragment extends Fragment
 
         int count = fm.getBackStackEntryCount();
 
-        Log.v("PlaceFragment", "" + count);
-
-        for(int entry = 0; entry < count; entry++)
-        {
-            Log.i("PlaceFragment", "Found fragment: " + fm.getBackStackEntryAt(entry).getId());
-        }
-
-        return "";
+        return fm.getBackStackEntryAt(count - 1).getName();
     }
 
     /**

@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.yelp.fusion.client.models.Business;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
@@ -78,6 +77,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             itemImage = itemView.findViewById(R.id.item_image);
             itemTitle = itemView.findViewById(R.id.item_title);
             itemDetail = itemView.findViewById(R.id.item_detail);
+
+            itemView.setOnClickListener(v ->
+            {
+
+            });
         }
     }
 
