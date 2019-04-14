@@ -88,9 +88,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 {
                     if (data.moveToFirst())
                     {
-                        whimDatabaseHelper.deleteRestaurant(data.getString(data.getColumnIndex("ID")));
-                        itemTitle.setText("Deleted");
-                        itemDetail.setText("Will Refresh Soon");
+                        String businessID = data.getString(data.getColumnIndex("ID"));
+
+                        // deletes from the internal database
+                        whimDatabaseHelper.deleteRestaurant(businessID);
+
+                        // deletes from the current memory
+                        for (Business b : businesses)
+                        {
+                            if (b.getId().equals(businessID))
+                            {
+                                businesses.remove(b);
+
+                                break;
+                            }
+                        }
                     }
                 }
                 finally
@@ -101,6 +113,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     }
                     whimDatabaseHelper.close();
                 }
+
+                // refreshes the RecyclerAdapter
+                notifyDataSetChanged();
             });
         }
     }
