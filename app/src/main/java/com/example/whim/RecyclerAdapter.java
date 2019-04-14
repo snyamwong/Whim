@@ -1,5 +1,6 @@
 package com.example.whim;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -53,6 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         viewHolder.itemTitle.setText(businesses.get(i).getName());
         viewHolder.itemDetail.setText(businesses.get(i).getLocation().getAddress1());
+        viewHolder.id = businesses.get(i).getId();
         new DownloadImageFromInternet(itemImage).execute(businesses.get(i).getImageUrl());
         itemImage.getLayoutParams().width = 600;
         itemImage.getLayoutParams().height = 600;
@@ -69,6 +71,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         ImageView itemImage;
         TextView itemTitle;
         TextView itemDetail;
+        String id;
 
         ViewHolder(View itemView)
         {
@@ -80,7 +83,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             itemView.setOnClickListener(v ->
             {
-
+                Cursor data = whimDatabaseHelper.getRestaurant(id);
+                try
+                {
+                    if (data.moveToFirst())
+                    {
+                        whimDatabaseHelper.deleteRestaurant(data.getString(data.getColumnIndex("ID")));
+                        itemTitle.setText("Deleted");
+                        itemDetail.setText("Will Refresh Soon");
+                    }
+                }
+                finally
+                {
+                    if (!data.isClosed())
+                    {
+                        data.close();
+                    }
+                    whimDatabaseHelper.close();
+                }
             });
         }
     }
