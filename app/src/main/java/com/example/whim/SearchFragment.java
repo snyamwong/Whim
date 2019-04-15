@@ -18,19 +18,22 @@ public class SearchFragment extends Fragment
     {
         String tag = (String) v.getTag();
 
-        Fragment fragment = new FilterFragment();
+        Fragment filterFragment = new FilterFragment();
         Bundle bundle = new Bundle();
         bundle.putString("categories", tag);
-        fragment.setArguments(bundle);
+        filterFragment.setArguments(bundle);
 
         MainActivity mainActivity = (MainActivity) this.getActivity();
         mainActivity.hideTabLayout();
 
-        assert getFragmentManager() != null;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
 
-        transaction.hide(this);
-        transaction.add(R.id.main_content, fragment);
+        for (Fragment fragment : mainActivity.getSupportFragmentManager().getFragments())
+        {
+            transaction.remove(fragment);
+        }
+
+        transaction.add(R.id.main_content, filterFragment);
         transaction.addToBackStack("SearchFragment");
         transaction.commit();
     };
