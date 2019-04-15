@@ -98,17 +98,6 @@
                 android:textStyle="bold"
                 android:background="@drawable/buttonstyle"/>
 
-            <Button
-                android:id="@+id/pizza"
-                android:layout_width="375dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/thai"
-                android:text="@string/pizza"
-                android:textStyle="bold"
-                android:background="@drawable/buttonstyle"/>
-
         </RelativeLayout>
 
     </ScrollView>

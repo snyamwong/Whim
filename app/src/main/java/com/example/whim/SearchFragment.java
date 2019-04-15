@@ -94,10 +94,6 @@ public class SearchFragment extends Fragment
         thaiButton.setTag("thai");
         thaiButton.setOnClickListener(buttonListener);
 
-        Button pizzaButton = view.findViewById(R.id.pizza);
-        pizzaButton.setTag("pizza");
-        pizzaButton.setOnClickListener(buttonListener);
-
         // Inflate the layout for this fragment
         return view;
     }
