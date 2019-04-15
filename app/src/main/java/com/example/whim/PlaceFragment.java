@@ -231,16 +231,15 @@ public class PlaceFragment extends Fragment
 
             returnHome.setOnClickListener(v ->
             {
-                MainActivity mainActivity = (MainActivity) PlaceFragment.this.getActivity();
-                mainActivity.showSupportActionBar();
+                MainActivity mainActivity = (MainActivity) this.getActivity();
                 mainActivity.showTabLayout();
 
-                Fragment fragment = new SearchFragment();
-                assert getFragmentManager() != null;
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                SearchFragment searchFragment = new SearchFragment();
+                FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
 
-                transaction.hide(PlaceFragment.this);
-                transaction.add(R.id.main_content, fragment);
+                transaction.remove(this);
+                transaction.add(R.id.container, searchFragment);
+                transaction.addToBackStack("PlaceFragment");
                 transaction.commit();
             });
         }

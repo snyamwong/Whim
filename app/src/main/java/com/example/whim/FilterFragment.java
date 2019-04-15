@@ -1,6 +1,7 @@
 package com.example.whim;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +72,7 @@ public class FilterFragment extends Fragment
 
             createLocationManager();
 
-            Fragment fragment = new PlaceFragment();
+            Fragment placeFragment = new PlaceFragment();
             Bundle bundle = new Bundle();
             bundle.putString("term", "restaurant");
             bundle.putString("categories", prevFragment.getString("categories"));
@@ -82,13 +84,14 @@ public class FilterFragment extends Fragment
             bundle.putString("order_delivery", "" + view.findViewById(R.id.order_delivery).isEnabled());
             bundle.putString("order_takeout", "" + view.findViewById(R.id.order_takeout).isEnabled());
             bundle.putString("star", getStarParam());
-            fragment.setArguments(bundle);
+            placeFragment.setArguments(bundle);
+
+            FragmentActivity mainActivity = this.getActivity();
 
             assert getFragmentManager() != null;
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
 
-            transaction.hide(this);
-            transaction.add(R.id.main_content, fragment);
+            transaction.replace(R.id.main_content, placeFragment);
             transaction.addToBackStack("FilterFragment");
             transaction.commit();
         });
@@ -271,7 +274,7 @@ public class FilterFragment extends Fragment
             star.add("1");
         }
 
-        if(star.isEmpty())
+        if (star.isEmpty())
         {
             return "4,3,2,1";
         }

@@ -32,41 +32,6 @@ public class MainActivity extends AppCompatActivity implements FavoriteFragment.
 
         setContentView(R.layout.activity_main);
 
-        Fragment searchFragment = new SearchFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.show(searchFragment);
-        transaction.commit();
-
-        showSupportActionBar();
-        showTabLayout();
-    }
-
-    /**
-     *
-     */
-    void showSupportActionBar()
-    {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().show();
-    }
-
-    /**
-     *
-     */
-    void hideSupportActionBar()
-    {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().hide();
-    }
-
-    /**
-     *
-     */
-    void showTabLayout()
-    {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -81,8 +46,18 @@ public class MainActivity extends AppCompatActivity implements FavoriteFragment.
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        // mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+    }
+
+    /**
+     *
+     */
+    void showTabLayout()
+    {
+        TabLayout tabLayout = findViewById(R.id.tabs);
+
+        tabLayout.setVisibility(View.VISIBLE);
     }
 
     /**
